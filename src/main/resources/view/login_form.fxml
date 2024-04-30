@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootNode" prefHeight="476.0" prefWidth="543.0" style="-fx-background-color: #0000;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.LoginFormController">
+   <children>
+      <ImageView fitHeight="477.0" fitWidth="546.0" layoutX="1.0" layoutY="-1.0" opacity="0.51">
+         <image>
+            <Image url="@../assests/pictures/300s.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="248.0" layoutY="28.0" text="Login" textFill="#111111">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtUserName" layoutX="135.0" layoutY="94.0" prefHeight="41.0" prefWidth="277.0" promptText="user name" />
+      <TextField fx:id="txtPassword" layoutX="135.0" layoutY="181.0" prefHeight="41.0" prefWidth="277.0" promptText="password" />
+      <JFXButton buttonType="RAISED" layoutX="134.0" layoutY="257.0" onAction="#btnLoginOnAction" prefHeight="32.0" prefWidth="277.0" ripplerFill="#4659d7" style="-fx-background-color: #a29bfe;" text="Login" textFill="#171717">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <Label layoutX="136.0" layoutY="308.0" text="Don't have an account?" textFill="#636e72" />
+      <Hyperlink layoutX="317.0" layoutY="306.0" onAction="#linkRegistrationOnAction" prefHeight="22.0" prefWidth="121.0" text="Register on here" textFill="#0a0a0a" />
+      <Label layoutX="138.0" layoutY="77.0" text="user name:" textFill="#0a0a0a" />
+      <Label layoutX="138.0" layoutY="162.0" text="password:" textFill="#0a0a0a" />
+      <ImageView fitHeight="75.0" fitWidth="83.0" layoutX="432.0" layoutY="19.0" opacity="0.84">
+         <image>
+            <Image url="@../../../../../../../Downloads/%5Bremoval.ai%5D_f833d6f1-212f-49d4-b051-77c29012968f-image.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
