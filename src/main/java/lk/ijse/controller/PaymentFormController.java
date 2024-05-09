@@ -14,58 +14,58 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
-public class ItemFormController {
-
+public class PaymentFormController {
 
     @FXML
     private TableColumn<?, ?> colId;
 
     @FXML
-    private TableColumn<?, ?> colName;
+    private TableColumn<?, ?> colAmount;
 
     @FXML
-    private TableColumn<?, ?> colDescription;
+    private TableColumn<?, ?> colMethod;
 
     @FXML
-    private TableColumn<?, ?> colPrice;
+    private TableColumn<?, ?> colDate;
 
     @FXML
     private AnchorPane root;
 
     @FXML
-    private TableView<?> tblCustomer;
+    private TableView<?> tblPayment;
 
     @FXML
     private TextField txtId;
 
     @FXML
-    private TextField txtName;
+    private TextField txtAmount;
 
     @FXML
-    private TextField txtDescription;
+    private TextField txtMethod;
 
     @FXML
-    private TextField txtPrice;
+    private TextField txtDate;
 
-    public ItemFormController() {
+    public PaymentFormController() {
     }
 
     @FXML
     void btnSaveOnAction(ActionEvent event) {
         String id = this.txtId.getText();
-        String name = this.txtName.getText();
-        String description = this.txtDescription.getText();
-        String Price = this.txtPrice.getText();
-        String sql = "INSERT INTO Item VALUES(?, ?, ?, ?)";
+        String Amount = this.txtAmount.getText();
+        String Method = this.txtMethod.getText();
+        String Date = this.txtDate.getText();
+        String sql = "INSERT INTO customers VALUES(?, ?, ?, ?)";
 
         try {
             Connection connection = DbConnection.getInstance().getConnection();
             PreparedStatement pstm = connection.prepareStatement(sql);
             pstm.setObject(1, id);
-            pstm.setObject(2, name);
-            pstm.setObject(3, description);
-            pstm.setObject(4, Price);
+            pstm.setObject(2, Amount);
+            pstm.setObject(3, Method);
+            pstm.setObject(4, Date);
             boolean isSaved = pstm.executeUpdate() > 0;
             if (isSaved) {
                 (new Alert(Alert.AlertType.CONFIRMATION, "customer saved!", new ButtonType[0])).show();
@@ -79,25 +79,25 @@ public class ItemFormController {
 
     private void clearFields() {
         this.txtId.setText("");
-        this.txtName.setText("");
-        this.txtDescription.setText("");
-        this.txtPrice.setText("");
+        this.txtAmount.setText("");
+        this.txtMethod.setText("");
+        this.txtDate.setText("");
     }
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
         String id = this.txtId.getText();
-        String name = this.txtName.getText();
-        String description = this.txtDescription.getText();
-        String Price = this.txtPrice.getText();
+        String Amount = this.txtAmount.getText();
+        String Method = this.txtMethod.getText();
+        String tel = this.txtDate.getText();
         String sql = "UPDATE customers SET name = ?, address = ?, tel = ? WHERE id = ?";
 
         try {
             PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-            pstm.setObject(1, name);
-            pstm.setObject(2, description);
-            pstm.setObject(3, Price);
-            pstm.setObject(4, id);
+            pstm.setObject(1, id);
+            pstm.setObject(2, Amount);
+            pstm.setObject(3, Method);
+            pstm.setObject(4, Date);
             if (pstm.executeUpdate() > 0) {
                 (new Alert(Alert.AlertType.CONFIRMATION, "customer updated!", new ButtonType[0])).show();
                 this.clearFields();
@@ -120,11 +120,11 @@ public class ItemFormController {
             ResultSet resultSet = pstm.executeQuery();
             if (resultSet.next()) {
                 String name = resultSet.getString(2);
-                String description = resultSet.getString(3);
-                String Price = resultSet.getString(4);
+                String address = resultSet.getString(3);
+                String tel = resultSet.getString(4);
                 this.txtName.setText(name);
-                this.txtDescription.setText(description);
-                this.txtPrice.setText(Price);
+                this.txtAddress.setText(address);
+                this.txtTel.setText(tel);
             } else {
                 (new Alert(Alert.AlertType.INFORMATION, "customer id can't be find!", new ButtonType[0])).show();
             }

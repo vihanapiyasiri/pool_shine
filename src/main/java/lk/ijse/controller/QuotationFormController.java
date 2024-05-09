@@ -1,5 +1,4 @@
-package lk.ijse.controller ;
-
+package lk.ijse.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,57 +14,50 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ItemFormController {
-
+public class QuotationFormController {
+    @FXML
+    private TableView<?> tblContractOrder;
+    @FXML
+    private TableColumn<?, ?> colAction;
 
     @FXML
     private TableColumn<?, ?> colId;
 
     @FXML
-    private TableColumn<?, ?> colName;
+    private TableColumn<?, ?> colDate;
 
     @FXML
-    private TableColumn<?, ?> colDescription;
-
-    @FXML
-    private TableColumn<?, ?> colPrice;
+    private TableColumn<?, ?> colAmount;
 
     @FXML
     private AnchorPane root;
 
     @FXML
-    private TableView<?> tblCustomer;
-
-    @FXML
     private TextField txtId;
 
     @FXML
-    private TextField txtName;
+    private TextField txtDate;
 
     @FXML
-    private TextField txtDescription;
+    private TextField txtAmount;
 
-    @FXML
-    private TextField txtPrice;
 
-    public ItemFormController() {
+    public QuotationFormController() {
     }
 
     @FXML
     void btnSaveOnAction(ActionEvent event) {
         String id = this.txtId.getText();
-        String name = this.txtName.getText();
-        String description = this.txtDescription.getText();
-        String Price = this.txtPrice.getText();
-        String sql = "INSERT INTO Item VALUES(?, ?, ?, ?)";
+        String Date = this.txtDate.getText();
+        String Amount = this.txtAmount.getText();
+        String sql = "INSERT INTO contract_order VALUES(?, ?, ?)";
 
         try {
             Connection connection = DbConnection.getInstance().getConnection();
             PreparedStatement pstm = connection.prepareStatement(sql);
             pstm.setObject(1, id);
-            pstm.setObject(2, name);
-            pstm.setObject(3, description);
-            pstm.setObject(4, Price);
+            pstm.setObject(2, Date);
+            pstm.setObject(3, Amount);
             boolean isSaved = pstm.executeUpdate() > 0;
             if (isSaved) {
                 (new Alert(Alert.AlertType.CONFIRMATION, "customer saved!", new ButtonType[0])).show();
@@ -79,25 +71,22 @@ public class ItemFormController {
 
     private void clearFields() {
         this.txtId.setText("");
-        this.txtName.setText("");
-        this.txtDescription.setText("");
-        this.txtPrice.setText("");
+        this.txtDate.setText("");
+        this.txtAmount.setText("");
     }
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
-        String id = this.txtId.getText();
-        String name = this.txtName.getText();
-        String description = this.txtDescription.getText();
-        String Price = this.txtPrice.getText();
-        String sql = "UPDATE customers SET name = ?, address = ?, tel = ? WHERE id = ?";
+        String Id = this.txtId.getText();
+        String Date = this.txtDate.getText();
+        String Amount = this.txtAmount.getText();
+        String sql = "UPDATE contract_order SET Id = ?, Date = ?, Amount = ? WHERE id = ?";
 
         try {
             PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-            pstm.setObject(1, name);
-            pstm.setObject(2, description);
-            pstm.setObject(3, Price);
-            pstm.setObject(4, id);
+            pstm.setObject(1, Id);
+            pstm.setObject(2, Date);
+            pstm.setObject(3, Amount);
             if (pstm.executeUpdate() > 0) {
                 (new Alert(Alert.AlertType.CONFIRMATION, "customer updated!", new ButtonType[0])).show();
                 this.clearFields();
@@ -120,11 +109,10 @@ public class ItemFormController {
             ResultSet resultSet = pstm.executeQuery();
             if (resultSet.next()) {
                 String name = resultSet.getString(2);
-                String description = resultSet.getString(3);
-                String Price = resultSet.getString(4);
-                this.txtName.setText(name);
-                this.txtDescription.setText(description);
-                this.txtPrice.setText(Price);
+                String address = resultSet.getString(3);
+                String tel = resultSet.getString(4);
+                this.txtDate.setText(name);
+                this.txtAmount.setText(address);
             } else {
                 (new Alert(Alert.AlertType.INFORMATION, "customer id can't be find!", new ButtonType[0])).show();
             }
@@ -159,8 +147,9 @@ public class ItemFormController {
 
     @FXML
     void btnBackOnAction(ActionEvent event) throws IOException {
-        AnchorPane anchorPane = (AnchorPane)FXMLLoader.load(this.getClass().getResource("/view/dashboard_form.fxml"));
-        Stage stage = (Stage)this.root.getScene().getWindow();
+        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/dashboard_form.fxml"));
+        Stage stage = (Stage) root.getScene().getWindow();
+
         stage.setScene(new Scene(anchorPane));
         stage.setTitle("Dashboard Form");
         stage.centerOnScreen();

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.Quotation">
+   <children>
+      <ImageView fitHeight="743.0" fitWidth="818.0" opacity="0.45">
+         <image>
+            <Image url="@../assests/pictures/Aqualux-Image-5.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="298.0" layoutY="23.0" text="Contract Order Manage">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtCode" layoutX="295.0" layoutY="95.0" onAction="#codeSearchOnAction" prefHeight="35.0" prefWidth="245.0" />
+      <Label layoutX="297.0" layoutY="146.0" text="Date*">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
+      <TextField fx:id="txtDescription" layoutX="297.0" layoutY="232.0" prefHeight="35.0" prefWidth="245.0" />
+      <TableView fx:id="tblItem" layoutX="168.0" layoutY="311.0" prefHeight="190.0" prefWidth="626.0">
+         <columns>
+            <TableColumn fx:id="colCode" prefWidth="114.0" text="Contract Order Id" />
+            <TableColumn fx:id="colDescription" prefWidth="190.0" text="Date" />
+            <TableColumn fx:id="colUnitPrice" prefWidth="275.0" text="Amount" />
+         </columns>
+      </TableView>
+      <JFXButton buttonType="RAISED" layoutX="733.0" layoutY="521.0" onAction="#btnBackOnAction" prefHeight="35.0" prefWidth="61.0" style="-fx-background-color: grey;" text="Back">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <Label layoutX="297.0" layoutY="214.0" text="Amount*">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font></Label>
+      <ImageView fitHeight="75.0" fitWidth="83.0" layoutX="711.0" layoutY="23.0" opacity="0.84">
+         <image>
+            <Image url="@../assests/pictures/%5Bremoval.ai%5D_f833d6f1-212f-49d4-b051-77c29012968f-image.png" />
+         </image>
+      </ImageView>
+      <JFXButton buttonType="RAISED" contentDisplay="RIGHT" layoutX="20.0" layoutY="309.0" onAction="#btnSaveOnAction" prefHeight="40.0" prefWidth="111.0" style="-fx-background-color: #1E0342;" text="Save" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" contentDisplay="RIGHT" layoutX="20.0" layoutY="357.0" onAction="#btnUpdateOnAction" prefHeight="40.0" prefWidth="111.0" style="-fx-background-color: #0E46A3;" text="Update" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" contentDisplay="RIGHT" layoutX="20.0" layoutY="406.0" onAction="#btnDeleteOnAction" prefHeight="40.0" prefWidth="111.0" style="-fx-background-color: #9AC8CD;" text="Delete" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" contentDisplay="RIGHT" layoutX="20.0" layoutY="453.0" onAction="#btnClearOnAction" prefHeight="40.0" prefWidth="111.0" style="-fx-background-color: #E1F7F5;" text="Clear" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <Label layoutX="296.0" layoutY="77.0" text="Contract Order Id*">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <DatePicker layoutX="296.0" layoutY="165.0" prefHeight="35.0" prefWidth="245.0" />
+   </children>
+</AnchorPane>

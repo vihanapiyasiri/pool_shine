@@ -20,25 +20,25 @@ import java.sql.SQLException;
 
 public class SupplierFormController {
     @FXML
-    private TableColumn<?, ?> colAddress;
-
-    @FXML
     private TableColumn<?, ?> colId;
 
     @FXML
     private TableColumn<?, ?> colName;
 
     @FXML
-    private TableColumn<?, ?> colTel;
+    private TableColumn<?, ?> colAddress;
+
+    @FXML
+    private TableColumn<?, ?> colContact;
+
+    @FXML
+    private TableColumn<?, ?> colPayment_terms;
 
     @FXML
     private AnchorPane root;
 
     @FXML
-    private TableView<?> tblCustomer;
-
-    @FXML
-    private TextField txtAddress;
+    private TableView<?> tblSupplier;
 
     @FXML
     private TextField txtId;
@@ -47,16 +47,23 @@ public class SupplierFormController {
     private TextField txtName;
 
     @FXML
-    private TextField txtTel;
+    private TextField txtAddress;
+
+    @FXML
+    private TextField txtContact;
+
+    @FXML
+    private TextField txtPayment_terms;
 
     @FXML
     void btnSaveOnAction(ActionEvent event) {
         String id = txtId.getText();
         String name = txtName.getText();
         String address = txtAddress.getText();
-        String tel = txtTel.getText();
+        String Contact = txtContact.getText();
+        String Payment_terms = txtPayment_terms.getText();
 
-        String sql = "INSERT INTO Customer VALUES(?, ?, ?, ?)";
+        String sql = "INSERT INTO Customer VALUES(?, ?, ?, ?, ?)";
 
         try {
             Connection connection = DbConnection.getInstance().getConnection();
@@ -65,7 +72,8 @@ public class SupplierFormController {
             pstm.setObject(1, id);
             pstm.setObject(2, name);
             pstm.setObject(3, address);
-            pstm.setObject(4, tel);
+            pstm.setObject(4, Contact);
+            pstm.setObject(4, Payment_terms);
 
             boolean isSaved = pstm.executeUpdate() > 0;
             if(isSaved) {
@@ -81,7 +89,8 @@ public class SupplierFormController {
         txtId.setText("");
         txtName.setText("");
         txtAddress.setText("");
-        txtTel.setText("");
+        txtContact.setText("");
+        txtPayment_terms.setText("");
     }
 
     @FXML
@@ -89,7 +98,8 @@ public class SupplierFormController {
         String id = txtId.getText();
         String name = txtName.getText();
         String address = txtAddress.getText();
-        String tel = txtTel.getText();
+        String Contact = txtContact.getText();
+        String Payment_terms = txtPayment_terms.getText();
 
         String sql = "UPDATE Customer SET Name = ?, Address = ?, Contact = ? WHERE Customer_ID = ?";
 
@@ -97,10 +107,11 @@ public class SupplierFormController {
             PreparedStatement pstm = DbConnection.getInstance().getConnection()
                     .prepareStatement(sql);
 
+            pstm.setObject(4, id);
             pstm.setObject(1, name);
             pstm.setObject(2, address);
-            pstm.setObject(3, tel);
-            pstm.setObject(4, id);
+            pstm.setObject(3, Contact);
+            pstm.setObject(4, Payment_terms);
 
             if(pstm.executeUpdate() > 0) {
                 new Alert(Alert.AlertType.CONFIRMATION, "customer updated!").show();
