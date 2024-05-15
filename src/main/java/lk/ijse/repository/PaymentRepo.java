@@ -52,7 +52,7 @@ public class PaymentRepo {
         Customer customer = null;
 
         if (resultSet.next()) {
-            String Customer_ID = resultSet.getString(1);
+            String Payment_ID = resultSet.getString(1);
             String Name= resultSet.getString(2);
             String Address = resultSet.getString(3);
             String Contact = resultSet.getString(4);
