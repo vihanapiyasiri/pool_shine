@@ -1,6 +1,7 @@
 package lk.ijse.controller;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -24,6 +25,8 @@ public class LoginFormController {
     public TextField txtUserName;
     private DbConnection DbConnection;
 
+    public static String [] credintial = new String[2];
+
     public void btnLoginOnAction(ActionEvent actionEvent) throws IOException {
         String userName = txtUserName.getText();
         String pw = txtPassword.getText();
@@ -35,18 +38,20 @@ public class LoginFormController {
         }
     }
 
-    private void checkCredential(String name, String pw) throws SQLException, IOException {
-        String sql = "SELECT Name, Contact FROM users WHERE Name = ?";
+    private void checkCredential(String userId, String pw) throws SQLException, IOException {
+        String sql = "SELECT User_ID, Password FROM user WHERE User_ID = ?";
 
         Connection connection = DbConnection.getInstance().getConnection();
         PreparedStatement pstm = connection.prepareStatement(sql);
-        pstm.setObject(1, name);
+        pstm.setObject(1, userId);
 
         ResultSet resultSet = pstm.executeQuery();
         if(resultSet.next()) {
             String dbPw = resultSet.getString(2);
 
             if(dbPw.equals(pw)) {
+                credintial[0] =userId;
+                credintial[1] = pw;
                 navigateToTheDashboard();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Password is incorrect!").show();
@@ -77,5 +82,14 @@ public class LoginFormController {
         stage.setTitle("Registration Form");
 
         stage.show();
+    }
+    @FXML
+    void txtPasswordOnAction(ActionEvent event) throws IOException {
+        btnLoginOnAction(event);
+    }
+
+    @FXML
+    void txtUserNameOnAction(ActionEvent event) {
+        txtPassword.requestFocus();
     }
 }

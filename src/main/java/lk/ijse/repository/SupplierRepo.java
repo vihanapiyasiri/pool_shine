@@ -9,39 +9,41 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 
 public class SupplierRepo {
-    public static boolean save(Customer customer) throws SQLException {
+    public static boolean save(Supplier supplier) throws SQLException {
 //        In here you can now save your customer
-        String sql = "INSERT INTO Customer VALUES(?, ?, ?, ?)";
+        String sql = "INSERT INTO Supplier VALUES(?, ?, ?, ? ,?)";
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
                 .prepareStatement(sql);
 
-        pstm.setObject(1, customer.getId());
-        pstm.setObject(2, customer.getName());
-        pstm.setObject(3, customer.getAddress());
-        pstm.setObject(4, customer.getTel());
+        pstm.setObject(1, supplier.getSupplierId());
+        pstm.setObject(2, supplier.getName());
+        pstm.setObject(3, supplier.getAddress());
+        pstm.setObject(4, supplier.getContact());
+        pstm.setObject(5, supplier.getPayment_terms());
 
         return pstm.executeUpdate() > 0;
 
     }
 
-    public static boolean update(Customer customer) throws SQLException {
+    public static boolean update(Supplier supplier) throws SQLException {
         String sql = "UPDATE Customer SET Name = ?, Address  = ?, Contact = ? WHERE Customer_ID = ?";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
                 .prepareStatement(sql);
 
-        pstm.setObject(1, customer.getName());
-        pstm.setObject(2, customer.getAddress());
-        pstm.setObject(3, customer.getTel());
-        pstm.setObject(4, customer.getId());
+        pstm.setObject(1, supplier.getName());
+        pstm.setObject(2, supplier.getAddress());
+        pstm.setObject(3, supplier.getTel());
+        pstm.setObject(4, supplier.getId());
 
         return pstm.executeUpdate() > 0;
     }
 
-    public static Customer searchById(String id) throws SQLException {
+    public static Supplier searchById(String id) throws SQLException {
         String sql = "SELECT * FROM Customer WHERE Customer_ID = ?";
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
                 .prepareStatement(sql);

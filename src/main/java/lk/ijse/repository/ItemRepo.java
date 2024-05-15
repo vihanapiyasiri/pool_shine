@@ -1,6 +1,6 @@
 package lk.ijse.repository;
+import com.lowagie.text.pdf.AcroFields;
 import lk.ijse.db.DbConnection;
-import lk.ijse.model.Customer;
 import lk.ijse.model.Item;
 
 import java.sql.Connection;
@@ -12,35 +12,35 @@ import java.util.List;
 
 
 public class ItemRepo {
-    public static <Item> boolean save(Item item) throws SQLException {
+    public static boolean save(Item item) throws SQLException {
 //        In here you can now save your customer
         String sql = "INSERT INTO Item VALUES(?, ?, ?, ?)";
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
                 .prepareStatement(sql);
 
-        pstm.setObject(1, item.getId());
+        pstm.setObject(1, item.getItemId());
         pstm.setObject(2, item.getName());
-        pstm.setObject(3, item.getDescription());
+        pstm.setObject(3, item.getDesc());
         pstm.setObject(4, item.getPrice());
 
         return pstm.executeUpdate() > 0;
 
     }
-    public static boolean update(Customer customer) throws SQLException {
+    public static boolean update(Item item) throws SQLException {
         String sql = "UPDATE Customer SET Name = ?, Address  = ?, Contact = ? WHERE Customer_ID = ?";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
                 .prepareStatement(sql);
 
-        pstm.setObject(1, customer.getName());
-        pstm.setObject(2, customer.getAddress());
-        pstm.setObject(3, customer.getTel());
-        pstm.setObject(4, customer.getId());
+        pstm.setObject(1, item.getItemId());
+        pstm.setObject(2, item.getName());
+        pstm.setObject(3, item.getDesc());
+        pstm.setObject(4, item.getPrice());
 
         return pstm.executeUpdate() > 0;
     }
 
-    public static Customer searchById(String id) throws SQLException {
+    public static Item searchById(String id) throws SQLException {
         String sql = "SELECT * FROM Customer WHERE Customer_ID = ?";
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
                 .prepareStatement(sql);
@@ -48,15 +48,15 @@ public class ItemRepo {
         pstm.setObject(1, id);
         ResultSet resultSet = pstm.executeQuery();
 
-        Customer customer = null;
+        Item customer = null;
 
         if (resultSet.next()) {
             String Customer_ID = resultSet.getString(1);
             String Name= resultSet.getString(2);
             String Address = resultSet.getString(3);
-            String Contact = resultSet.getString(4);
+            double price = resultSet.getDouble(4);
 
-            customer = new Customer(Customer_ID,Name,Address,Contact);
+            customer = new Item(Customer_ID,Name,Address,price);
         }
         return customer;
     }
@@ -71,7 +71,7 @@ public class ItemRepo {
         return pstm.executeUpdate() > 0;
     }
 
-    public static List<Customer> getAll() throws SQLException {
+    public static List<Item> getAll() throws SQLException {
         String sql = "SELECT * FROM Customer";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
@@ -79,14 +79,14 @@ public class ItemRepo {
 
         ResultSet resultSet = pstm.executeQuery();
 
-        List<Customer> customersList = new ArrayList<>();
+        List<Item> customersList = new ArrayList<>();
         while (resultSet.next()) {
             String Customer_ID = resultSet.getString(1);
             String Name= resultSet.getString(2);
             String Address = resultSet.getString(3);
-            String Contact = resultSet.getString(4);
+            double Contact = resultSet.getDouble(4);
 
-            Customer customer = new Customer(Customer_ID,Name,Address,Contact);
+            Item customer = new Item(Customer_ID,Name,Address,Contact);
             customersList.add(customer);
         }
         return customersList;

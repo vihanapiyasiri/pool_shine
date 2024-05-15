@@ -13,43 +13,43 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class ContractOrderFormController {
     @FXML
-    private TableView<?> tblContractOrder;
-    @FXML
-    private TableColumn<?, ?> colAction;
+    private Label Amount;
 
     @FXML
-    private TableColumn<?, ?> colId;
+    private TableColumn<?, ?> colCode;
 
     @FXML
-    private TableColumn<?, ?> colDate;
+    private TableColumn<?, ?> colDescription;
 
     @FXML
-    private TableColumn<?, ?> colAmount;
+    private TableColumn<?, ?> colUnitPrice;
 
     @FXML
-    private AnchorPane root;
-
-    @FXML
-    private TextField txtId;
-
-    @FXML
-    private TextField txtDate;
+    private TableView<?> tblItem;
 
     @FXML
     private TextField txtAmount;
 
+    @FXML
+    private TextField txtContractOrderId;
 
-    public ContractOrderFormController(TextField txtAmount) {
-        this.txtAmount = txtAmount;
+    @FXML
+    private DatePicker txtDate;
+
+
+    @FXML
+    void codeSearchOnAction(ActionEvent event) {
+
     }
 
     @FXML
     void btnSaveOnAction(ActionEvent event) {
-        String id = this.txtId.getText();
-        String name = this.txtDate.getText();
+        String id = this.txtContractOrderId.getText();
+        String name = String.valueOf(this.txtDate.getValue());
         String address = this.txtAmount.getText();
         String sql = "INSERT INTO contract_order VALUES(?, ?, ?)";
 
@@ -57,8 +57,8 @@ public class ContractOrderFormController {
             Connection connection = DbConnection.getInstance().getConnection();
             PreparedStatement pstm = connection.prepareStatement(sql);
             pstm.setObject(1, id);
-            pstm.setObject(2, Date);
-            pstm.setObject(3, Amount);
+            pstm.setObject(2, name);
+            pstm.setObject(3, address);
             boolean isSaved = pstm.executeUpdate() > 0;
             if (isSaved) {
                 (new Alert(Alert.AlertType.CONFIRMATION, "customer saved!", new ButtonType[0])).show();
@@ -71,23 +71,22 @@ public class ContractOrderFormController {
     }
 
     private void clearFields() {
-        this.txtId.setText("");
-        this.txtDate.setText("");
+        this.txtContractOrderId.setText("");
         this.txtAmount.setText("");
     }
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
-        String id = this.txtId.getText();
-        String name = this.txtDate.getText();
+        String id = this.txtContractOrderId.getText();
+        String date = String.valueOf(this.txtDate.getValue());
         String address = this.txtAmount.getText();
         String sql = "UPDATE contract_order SET Id = ?, Date = ?, Amount = ? WHERE id = ?";
 
         try {
             PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-            pstm.setObject(1, name);
+            pstm.setObject(1, date);
             pstm.setObject(2, address);
-            pstm.setObject(3, tel);
+            pstm.setObject(3, 00);
             pstm.setObject(4, id);
             if (pstm.executeUpdate() > 0) {
                 (new Alert(Alert.AlertType.CONFIRMATION, "customer updated!", new ButtonType[0])).show();
@@ -101,7 +100,7 @@ public class ContractOrderFormController {
 
     @FXML
     void txtSearchOnAction(ActionEvent event) {
-        String id = this.txtId.getText();
+        String id = this.txtContractOrderId.getText();
         String sql = "SELECT * FROM customers WHERE id = ?";
 
         try {
@@ -113,7 +112,7 @@ public class ContractOrderFormController {
                 String name = resultSet.getString(2);
                 String address = resultSet.getString(3);
                 String tel = resultSet.getString(4);
-                this.txtDate.setText(name);
+                //this.txtDate.setText(name);
                 this.txtAmount.setText(address);
             } else {
                 (new Alert(Alert.AlertType.INFORMATION, "customer id can't be find!", new ButtonType[0])).show();
@@ -126,7 +125,7 @@ public class ContractOrderFormController {
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
-        String id = this.txtId.getText();
+        String id = this.txtContractOrderId.getText();
         String sql = "DELETE FROM customers WHERE id = ?";
 
         try {
@@ -150,7 +149,7 @@ public class ContractOrderFormController {
     @FXML
     void btnBackOnAction(ActionEvent event) throws IOException {
         AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/dashboard_form.fxml"));
-        Stage stage = (Stage) root.getScene().getWindow();
+        Stage stage = (Stage) txtAmount.getScene().getWindow();
 
         stage.setScene(new Scene(anchorPane));
         stage.setTitle("Dashboard Form");

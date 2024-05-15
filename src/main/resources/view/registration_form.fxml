@@ -9,34 +9,34 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="515.0" prefWidth="558.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.RegisterFormController">
+<AnchorPane prefHeight="1000.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.RegisterFormController">
    <children>
-      <ImageView fitHeight="752.0" fitWidth="822.0" opacity="0.5">
+      <ImageView fitHeight="1000.0" fitWidth="500.0" layoutY="1.0" opacity="0.5">
          <image>
             <Image url="@../assests/pictures/fibreglass-pools-in-australia.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="332.0" layoutY="37.0" text="Registration Form" textFill="#111111">
+      <Label layoutX="651.0" layoutY="27.0" text="Registration Form" textFill="#111111">
          <font>
-            <Font name="System Bold" size="20.0" />
+            <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <TextField fx:id="txtUserId" layoutX="179.0" layoutY="108.0" prefHeight="34.0" prefWidth="478.0" promptText="Input your user id here" />
-      <TextField fx:id="txtRole" layoutX="178.0" layoutY="297.0" prefHeight="34.0" prefWidth="478.0" promptText="Input your job role here" />
-      <TextField fx:id="txtName" layoutX="178.0" layoutY="172.0" prefHeight="34.0" prefWidth="478.0" promptText="Input your name here" />
-      <Label layoutX="184.0" layoutY="91.0" text="User ID">
+      <TextField fx:id="txtUserId" layoutX="519.0" layoutY="200.0" prefHeight="34.0" prefWidth="466.0" />
+      <TextField fx:id="txtRole" layoutX="518.0" layoutY="449.0" prefHeight="34.0" prefWidth="466.0" />
+      <TextField fx:id="txtName" layoutX="518.0" layoutY="286.0" prefHeight="34.0" prefWidth="466.0" />
+      <Label layoutX="524.0" layoutY="183.0" text="User ID">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>
-      <Label layoutX="182.0" layoutY="155.0" text="Name">
+      <Label layoutX="522.0" layoutY="267.0" text="Name">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>
-      <Label layoutX="179.0" layoutY="346.0" text="Contact">
+      <Label layoutX="519.0" layoutY="518.0" text="Contact">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>
-      <JFXButton buttonType="RAISED" layoutX="335.0" layoutY="422.0" onAction="#btnRegisterOnAction" prefHeight="34.0" prefWidth="168.0" style="-fx-background-color: #52D3D8;" text="Register Now" textFill="#282727">
+      <JFXButton buttonType="RAISED" layoutX="657.0" layoutY="606.0" onAction="#btnRegisterOnAction" prefHeight="35.0" prefWidth="191.0" style="-fx-background-color: #52D3D8;" text="Register Now" textFill="#282727">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -44,22 +44,22 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </JFXButton>
-      <Label layoutX="180.0" layoutY="280.0" text="Role">
+      <Label layoutX="520.0" layoutY="432.0" text="Role">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>
-      <TextField fx:id="txtPassword" layoutX="178.0" layoutY="232.0" prefHeight="34.0" prefWidth="478.0" promptText="Input your password here" />
-      <TextField fx:id="txtPw" layoutX="179.0" layoutY="363.0" prefHeight="34.0" prefWidth="478.0" promptText="Input your contact number here" />
-      <Label layoutX="179.0" layoutY="215.0" text="Password">
+      <TextField fx:id="txtPassword" layoutX="518.0" layoutY="366.0" prefHeight="34.0" prefWidth="466.0" />
+      <TextField fx:id="txtContact" layoutX="519.0" layoutY="535.0" prefHeight="34.0" prefWidth="466.0" />
+      <Label layoutX="519.0" layoutY="349.0" text="Password">
          <font>
             <Font name="System Bold" size="13.0" />
          </font></Label>
-      <ImageView fitHeight="75.0" fitWidth="83.0" layoutX="706.0" layoutY="23.0" opacity="0.84">
+      <ImageView fitHeight="75.0" fitWidth="83.0" layoutX="913.0" layoutY="7.0" opacity="0.84">
          <image>
             <Image url="@../../../../../../../Downloads/%5Bremoval.ai%5D_f833d6f1-212f-49d4-b051-77c29012968f-image.png" />
          </image>
       </ImageView>
-      <JFXButton buttonType="RAISED" layoutX="735.0" layoutY="470.0" onAction="#btnBackOnAction" prefHeight="35.0" prefWidth="61.0" style="-fx-background-color: grey;" text="Back">
+      <JFXButton buttonType="RAISED" layoutX="913.0" layoutY="924.0" onAction="#btnBackOnAction" prefHeight="35.0" prefWidth="61.0" style="-fx-background-color: grey;" text="Back">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

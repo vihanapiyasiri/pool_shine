@@ -14,7 +14,7 @@ import java.util.List;
 public class CustomerRepo {
     public static boolean save(Customer customer) throws SQLException {
 //        In here you can now save your customer
-        String sql = "INSERT INTO Customer VALUES(?, ?, ?, ?)";
+        String sql = "INSERT INTO Customer VALUES(?, ?, ?, ?,?)";
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
                 .prepareStatement(sql);
 
@@ -22,6 +22,7 @@ public class CustomerRepo {
         pstm.setObject(2, customer.getName());
         pstm.setObject(3, customer.getAddress());
         pstm.setObject(4, customer.getTel());
+        pstm.setObject(5,customer.getUserId());
 
         return pstm.executeUpdate() > 0;
 
@@ -57,7 +58,7 @@ public class CustomerRepo {
             String Address = resultSet.getString(3);
             String Contact = resultSet.getString(4);
 
-            customer = new Customer(Customer_ID,Name,Address,Contact);
+          //  customer = new Customer(Customer_ID,Name,Address,Contact);
         }
         return customer;
     }
@@ -86,9 +87,10 @@ public class CustomerRepo {
             String Name= resultSet.getString(2);
             String Address = resultSet.getString(3);
             String Contact = resultSet.getString(4);
+            String user = resultSet.getString(5);
 
-            Customer customer = new Customer(Customer_ID,Name,Address,Contact);
-            customersList.add(customer);
+            Customer customer = new Customer(Customer_ID,Name,Address,Contact,user);
+          customersList.add(customer);
         }
         return customersList;
     }

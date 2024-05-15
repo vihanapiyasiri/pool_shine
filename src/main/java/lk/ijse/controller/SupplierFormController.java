@@ -140,7 +140,7 @@ public class SupplierFormController {
 
                 txtName.setText(name);
                 txtAddress.setText(address);
-                txtTel.setText(tel);
+                txtContact.setText(tel);
             } else {
                 new Alert(Alert.AlertType.INFORMATION, "customer id can't be find!").show();
             }

@@ -1,4 +1,5 @@
 package lk.ijse.controller;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -6,152 +7,133 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lk.ijse.db.DbConnection;
+import lk.ijse.model.Customer;
+import lk.ijse.repository.CustomerRepo;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import static jdk.internal.misc.OSEnvironment.initialize;
+import static lk.ijse.controller.LoginFormController.credintial;
+
 public class QuotationFormController {
+
+    public AnchorPane root;
     @FXML
-    private TableView<?> tblContractOrder;
-    @FXML
-    private TableColumn<?, ?> colAction;
+    private Label Amount;
 
     @FXML
-    private TableColumn<?, ?> colId;
+    private TableColumn<?, ?> colCode;
 
     @FXML
-    private TableColumn<?, ?> colDate;
+    private TableColumn<?, ?> colDescription;
 
     @FXML
-    private TableColumn<?, ?> colAmount;
+    private TableColumn<?, ?> colUnitPrice;
 
     @FXML
-    private AnchorPane root;
-
-    @FXML
-    private TextField txtId;
-
-    @FXML
-    private TextField txtDate;
+    private TableView<?> tblItem;
 
     @FXML
     private TextField txtAmount;
 
-
-    public QuotationFormController() {
-    }
+    @FXML
+    private DatePicker txtDate;
 
     @FXML
-    void btnSaveOnAction(ActionEvent event) {
-        String id = this.txtId.getText();
-        String Date = this.txtDate.getText();
-        String Amount = this.txtAmount.getText();
-        String sql = "INSERT INTO contract_order VALUES(?, ?, ?)";
-
-        try {
-            Connection connection = DbConnection.getInstance().getConnection();
-            PreparedStatement pstm = connection.prepareStatement(sql);
-            pstm.setObject(1, id);
-            pstm.setObject(2, Date);
-            pstm.setObject(3, Amount);
-            boolean isSaved = pstm.executeUpdate() > 0;
-            if (isSaved) {
-                (new Alert(Alert.AlertType.CONFIRMATION, "customer saved!", new ButtonType[0])).show();
-                this.clearFields();
-            }
-        } catch (SQLException var10) {
-            (new Alert(Alert.AlertType.ERROR, var10.getMessage(), new ButtonType[0])).show();
-        }
-
-    }
-
-    private void clearFields() {
-        this.txtId.setText("");
-        this.txtDate.setText("");
-        this.txtAmount.setText("");
-    }
-
-    @FXML
-    void btnUpdateOnAction(ActionEvent event) {
-        String Id = this.txtId.getText();
-        String Date = this.txtDate.getText();
-        String Amount = this.txtAmount.getText();
-        String sql = "UPDATE contract_order SET Id = ?, Date = ?, Amount = ? WHERE id = ?";
-
-        try {
-            PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-            pstm.setObject(1, Id);
-            pstm.setObject(2, Date);
-            pstm.setObject(3, Amount);
-            if (pstm.executeUpdate() > 0) {
-                (new Alert(Alert.AlertType.CONFIRMATION, "customer updated!", new ButtonType[0])).show();
-                this.clearFields();
-            }
-        } catch (SQLException var8) {
-            (new Alert(Alert.AlertType.ERROR, var8.getMessage(), new ButtonType[0])).show();
-        }
-
-    }
-
-    @FXML
-    void txtSearchOnAction(ActionEvent event) {
-        String id = this.txtId.getText();
-        String sql = "SELECT * FROM customers WHERE id = ?";
-
-        try {
-            Connection connection = DbConnection.getInstance().getConnection();
-            PreparedStatement pstm = connection.prepareStatement(sql);
-            pstm.setObject(1, id);
-            ResultSet resultSet = pstm.executeQuery();
-            if (resultSet.next()) {
-                String name = resultSet.getString(2);
-                String address = resultSet.getString(3);
-                String tel = resultSet.getString(4);
-                this.txtDate.setText(name);
-                this.txtAmount.setText(address);
-            } else {
-                (new Alert(Alert.AlertType.INFORMATION, "customer id can't be find!", new ButtonType[0])).show();
-            }
-
-        } catch (SQLException var10) {
-            throw new RuntimeException(var10);
-        }
-    }
-
-    @FXML
-    void btnDeleteOnAction(ActionEvent event) {
-        String id = this.txtId.getText();
-        String sql = "DELETE FROM customers WHERE id = ?";
-
-        try {
-            PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-            pstm.setObject(1, id);
-            if (pstm.executeUpdate() > 0) {
-                (new Alert(Alert.AlertType.CONFIRMATION, "customer deleted!", new ButtonType[0])).show();
-                this.clearFields();
-            }
-        } catch (SQLException var5) {
-            (new Alert(Alert.AlertType.ERROR, var5.getMessage(), new ButtonType[0])).show();
-        }
-
-    }
-
-    @FXML
-    void btnClearOnAction(ActionEvent event) {
-        this.clearFields();
-    }
+    private TextField txtQuotationId;
 
     @FXML
     void btnBackOnAction(ActionEvent event) throws IOException {
-        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/dashboard_form.fxml"));
+        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/Dashboard_form.fxml"));
         Stage stage = (Stage) root.getScene().getWindow();
 
         stage.setScene(new Scene(anchorPane));
         stage.setTitle("Dashboard Form");
         stage.centerOnScreen();
+
     }
+
+    @FXML
+    void btnClearOnAction(ActionEvent event) {
+        clearField();
+
+    }
+
+    private void clearField() {
+        txtAmount.setText("");
+    }
+
+    @FXML
+    void btnDeleteOnAction(ActionEvent event) {
+        String id = txtQuotationId.getText();
+
+        try {
+            boolean isDeleted = CustomerRepo.delete(id);
+            if (isDeleted) {
+                initialize();
+                new Alert(Alert.AlertType.CONFIRMATION, "Quotation deleted!").show();
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
+    }
+
+    @FXML
+    void btnSaveOnAction(ActionEvent event) {
+        String id = txtQuotationId.getText();
+        String date = txtDate.getText();
+        String amount = txtAmount.getText();
+       // String tel = txtTel.getText();
+        String userId = credintial[0];
+
+        Customer customer = new Customer(id, name,  address, tel,userId);
+
+
+        try {
+            boolean isSaved = CustomerRepo.save(customer);
+            if (isSaved) {
+                new Alert(Alert.AlertType.CONFIRMATION, "Quotation saved!").show();
+                loadAllCustomers();
+                clearFields();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    void btnUpdateOnAction(ActionEvent event) {
+        String id = txtQuotationId.getText();
+        String date = txtDate.getText();
+        String amount = txtAmount.getText();
+       // String tel = txtTel.getText();
+
+        Customer customer = new Customer(id, name, address,credintial[0]);
+
+        try {
+            boolean isUpdated = CustomerRepo.update(customer);
+            if (isUpdated) {
+                initialize();
+                new Alert(Alert.AlertType.CONFIRMATION, "Quotation updated!").show();
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
+    }
+    @FXML
+    void txtSearchOnAction(ActionEvent event) throws SQLException {
+        String id = txtQuotationId.getText();
+
+        Customer customer = CustomerRepo.searchById(id);
+        if (customer != null) {
+            txtQuotationId.setText(customer.getId());
+            txtDate.setText(customer.getName());
+            txtAmount.setText(customer.getAddress());
+            //txtTel.setText(customer.getTel());
+        } else {
+            new Alert(Alert.AlertType.INFORMATION, "Quotation not found!").show();
+        }
+    }
+
 }

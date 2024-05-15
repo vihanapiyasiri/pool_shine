@@ -10,21 +10,21 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootNode" prefHeight="476.0" prefWidth="543.0" style="-fx-background-color: #0000;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.LoginFormController">
+<AnchorPane fx:id="rootNode" prefHeight="990.0" prefWidth="1000.0" style="-fx-background-color: #0000;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.LoginFormController">
    <children>
-      <ImageView fitHeight="751.0" fitWidth="818.0" layoutX="-15.0" opacity="0.51">
+      <ImageView fitHeight="1000.0" fitWidth="500.0" layoutX="-19.0" layoutY="1.0" opacity="0.51">
          <image>
             <Image url="@../assests/pictures/300s.jpg" />
          </image>
       </ImageView>
-      <Label layoutX="368.0" layoutY="28.0" text="Login" textFill="#111111">
+      <Label layoutX="701.0" layoutY="60.0" text="Login" textFill="#111111">
          <font>
-            <Font name="System Bold" size="19.0" />
+            <Font name="System Bold" size="33.0" />
          </font>
       </Label>
-      <TextField fx:id="txtUserName" layoutX="255.0" layoutY="94.0" prefHeight="41.0" prefWidth="277.0" promptText="user name" />
-      <TextField fx:id="txtPassword" layoutX="255.0" layoutY="181.0" prefHeight="41.0" prefWidth="277.0" promptText="password" />
-      <JFXButton buttonType="RAISED" layoutX="254.0" layoutY="257.0" onAction="#btnLoginOnAction" prefHeight="32.0" prefWidth="277.0" ripplerFill="#4659d7" style="-fx-background-color: #a29bfe;" text="Login" textFill="#171717">
+      <TextField fx:id="txtUserName" layoutX="579.0" layoutY="323.0" onAction="#txtUserNameOnAction" prefHeight="41.0" prefWidth="338.0" promptText="user name" AnchorPane.topAnchor="323.0" />
+      <TextField fx:id="txtPassword" layoutX="579.0" layoutY="410.0" onAction="#txtPasswordOnAction" prefHeight="41.0" prefWidth="338.0" promptText="password" />
+      <JFXButton buttonType="RAISED" layoutX="578.0" layoutY="516.0" onAction="#btnLoginOnAction" prefHeight="32.0" prefWidth="338.0" ripplerFill="#4659d7" style="-fx-background-color: #a29bfe;" text="Login" textFill="#171717">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -32,14 +32,20 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <Label layoutX="256.0" layoutY="308.0" text="Don't have an account?" textFill="#636e72" />
-      <Hyperlink layoutX="437.0" layoutY="306.0" onAction="#linkRegistrationOnAction" prefHeight="22.0" prefWidth="121.0" text="Register on here" textFill="#0a0a0a" />
-      <Label layoutX="258.0" layoutY="77.0" text="user name:" textFill="#0a0a0a" />
-      <Label layoutX="258.0" layoutY="162.0" text="password:" textFill="#0a0a0a" />
-      <ImageView fitHeight="75.0" fitWidth="83.0" layoutX="684.0" layoutY="28.0" opacity="0.84">
+      <Label layoutX="580.0" layoutY="567.0" text="Don't have an account?" textFill="#636e72" />
+      <Hyperlink layoutX="820.0" layoutY="564.0" onAction="#linkRegistrationOnAction" prefHeight="23.0" prefWidth="96.0" text="Register on here" textFill="#0a0a0a" />
+      <Label layoutX="582.0" layoutY="306.0" text="user name:" textFill="#0a0a0a" />
+      <Label layoutX="582.0" layoutY="391.0" text="password:" textFill="#0a0a0a" />
+      <ImageView fitHeight="28.0" fitWidth="28.0" layoutX="690.0" layoutY="521.0">
+         <image>
+            <Image url="@../../../../../../../Downloads/%5Bremoval.ai%5D_6460a5ae-6e82-4f6d-8e4d-05c5edc18f97-download-4.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="232.0" fitWidth="239.0" layoutX="112.0" layoutY="46.0" opacity="0.84">
          <image>
             <Image url="@../../../../../../../Downloads/%5Bremoval.ai%5D_f833d6f1-212f-49d4-b051-77c29012968f-image.png" />
          </image>
       </ImageView>
+      <Label layoutX="81.0" layoutY="958.0" text="✉ info@poolshine.lk       |      ✆ +94 71 400 4 800           " />
    </children>
 </AnchorPane>

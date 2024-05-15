@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.db.DbConnection;
+import lk.ijse.model.Tm.ItemTm;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -18,57 +19,37 @@ import java.sql.SQLException;
 public class ItemFormController {
 
 
-    @FXML
-    private TableColumn<?, ?> colId;
-
-    @FXML
-    private TableColumn<?, ?> colName;
-
-    @FXML
-    private TableColumn<?, ?> colDescription;
-
-    @FXML
-    private TableColumn<?, ?> colPrice;
+    public TableView<ItemTm> tblItem;
+    public TableColumn<?,?> colCode;
+    public TableColumn<?,?> colDescription;
+    public TextField txtItemId;
+    public TextField txtDescription;
+    public TextField txtUnitPrice;
+    public TableColumn<?,?> colUnitPrice;
+    public TableColumn<?,?> colQtyOnHand;
+    public TextField txtName;
 
     @FXML
     private AnchorPane root;
 
     @FXML
-    private TableView<?> tblCustomer;
-
-    @FXML
-    private TextField txtId;
-
-    @FXML
-    private TextField txtName;
-
-    @FXML
-    private TextField txtDescription;
-
-    @FXML
-    private TextField txtPrice;
-
-    public ItemFormController() {
-    }
-
-    @FXML
     void btnSaveOnAction(ActionEvent event) {
-        String id = this.txtId.getText();
-        String name = this.txtName.getText();
-        String description = this.txtDescription.getText();
-        String Price = this.txtPrice.getText();
-        String sql = "INSERT INTO Item VALUES(?, ?, ?, ?)";
+        String id = txtItemId.getText();
+        String name = txtName.getText();
+        String desc = txtDescription.getText();
+        String price = txtUnitPrice.getText();
+        String sql = "INSERT INTO item VALUES(?, ?, ?, ?)";
 
         try {
             Connection connection = DbConnection.getInstance().getConnection();
             PreparedStatement pstm = connection.prepareStatement(sql);
             pstm.setObject(1, id);
             pstm.setObject(2, name);
-            pstm.setObject(3, description);
-            pstm.setObject(4, Price);
+            pstm.setObject(3, desc);
+            pstm.setObject(4, price);
             boolean isSaved = pstm.executeUpdate() > 0;
             if (isSaved) {
-                (new Alert(Alert.AlertType.CONFIRMATION, "customer saved!", new ButtonType[0])).show();
+                (new Alert(Alert.AlertType.CONFIRMATION, "Item saved!", new ButtonType[0])).show();
                 this.clearFields();
             }
         } catch (SQLException var10) {
@@ -78,28 +59,25 @@ public class ItemFormController {
     }
 
     private void clearFields() {
-        this.txtId.setText("");
-        this.txtName.setText("");
-        this.txtDescription.setText("");
-        this.txtPrice.setText("");
+
     }
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
-        String id = this.txtId.getText();
+        String id = this.txtItemId.getText();
         String name = this.txtName.getText();
-        String description = this.txtDescription.getText();
-        String Price = this.txtPrice.getText();
-        String sql = "UPDATE customers SET name = ?, address = ?, tel = ? WHERE id = ?";
+        String desc = this.txtDescription.getText();
+        String price = this.txtUnitPrice.getText();
+        String sql = "UPDATE item SET name = ?, address = ?, tel = ? WHERE id = ?";
 
         try {
             PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-            pstm.setObject(1, name);
-            pstm.setObject(2, description);
-            pstm.setObject(3, Price);
-            pstm.setObject(4, id);
+            pstm.setObject(1, id);
+            pstm.setObject(2, name);
+            pstm.setObject(3, desc);
+            pstm.setObject(4, price);
             if (pstm.executeUpdate() > 0) {
-                (new Alert(Alert.AlertType.CONFIRMATION, "customer updated!", new ButtonType[0])).show();
+                (new Alert(Alert.AlertType.CONFIRMATION, "Item updated!", new ButtonType[0])).show();
                 this.clearFields();
             }
         } catch (SQLException var8) {
@@ -108,9 +86,9 @@ public class ItemFormController {
 
     }
 
-    @FXML
-    void txtSearchOnAction(ActionEvent event) {
-        String id = this.txtId.getText();
+  @FXML
+    void btnSearchOnAction(ActionEvent event) {
+        String id = this.txtItemId.getText();
         String sql = "SELECT * FROM customers WHERE id = ?";
 
         try {
@@ -120,11 +98,11 @@ public class ItemFormController {
             ResultSet resultSet = pstm.executeQuery();
             if (resultSet.next()) {
                 String name = resultSet.getString(2);
-                String description = resultSet.getString(3);
-                String Price = resultSet.getString(4);
+                String desc = resultSet.getString(3);
+                String price = resultSet.getString(4);
                 this.txtName.setText(name);
-                this.txtDescription.setText(description);
-                this.txtPrice.setText(Price);
+                this.txtDescription.setText(desc);
+                this.txtUnitPrice.setText(price);
             } else {
                 (new Alert(Alert.AlertType.INFORMATION, "customer id can't be find!", new ButtonType[0])).show();
             }
@@ -136,14 +114,14 @@ public class ItemFormController {
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
-        String id = this.txtId.getText();
+        String id = this.txtItemId.getText();
         String sql = "DELETE FROM customers WHERE id = ?";
 
         try {
             PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
             pstm.setObject(1, id);
             if (pstm.executeUpdate() > 0) {
-                (new Alert(Alert.AlertType.CONFIRMATION, "customer deleted!", new ButtonType[0])).show();
+                (new Alert(Alert.AlertType.CONFIRMATION, "Item deleted!", new ButtonType[0])).show();
                 this.clearFields();
             }
         } catch (SQLException var5) {
@@ -165,4 +143,12 @@ public class ItemFormController {
         stage.setTitle("Dashboard Form");
         stage.centerOnScreen();
     }
-}
+
+    public void codeSearchOnAction(ActionEvent actionEvent) {
+    }
+
+    //public void btnUpdateOnAction(ActionEvent actionEvent) {
+    }
+
+   // public void btnDeleteOnAction(ActionEvent actionEvent) {
+

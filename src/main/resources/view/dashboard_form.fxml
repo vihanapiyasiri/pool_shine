@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -10,14 +11,14 @@
 
 <AnchorPane fx:id="rootNode" prefHeight="589.0" prefWidth="668.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.DashboardFormController">
    <children>
-      <AnchorPane layoutX="214.0" layoutY="-1.0" prefHeight="743.0" prefWidth="818.0">
+      <AnchorPane fx:id="bodyPane" layoutX="214.0" layoutY="-1.0" prefHeight="743.0" prefWidth="818.0">
          <children>
-            <ImageView fitHeight="743.0" fitWidth="826.0" layoutX="-5.0" opacity="0.75">
+            <ImageView fitHeight="1000.0" fitWidth="1000.0" layoutX="-5.0" opacity="0.75">
                <image>
-                  <Image url="@../../../../../../../Downloads/download.jpeg" />
+                  <Image url="@../assests/pictures/download.jpeg" />
                </image>
             </ImageView>
-            <AnchorPane layoutX="35.0" layoutY="76.0" prefHeight="81.0" prefWidth="133.0" style="-fx-background-color: #bdc3c7;">
+            <AnchorPane layoutX="36.0" layoutY="76.0" prefHeight="81.0" prefWidth="133.0" style="-fx-background-color: #bdc3c7;">
                <children>
                   <Label layoutX="6.0" layoutY="9.0" text="Customer Count">
                      <font>
@@ -31,7 +32,7 @@
                   </Label>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="238.0" layoutY="76.0" prefHeight="81.0" prefWidth="133.0" style="-fx-background-color: #bdc3c7;">
+            <AnchorPane layoutX="293.0" layoutY="76.0" prefHeight="81.0" prefWidth="133.0" style="-fx-background-color: #bdc3c7;">
                <children>
                   <Label layoutX="18.0" layoutY="14.0" text="Order Count">
                      <font>
@@ -45,7 +46,7 @@
                   </Label>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="446.0" layoutY="76.0" prefHeight="81.0" prefWidth="133.0" style="-fx-background-color: #bdc3c7;">
+            <AnchorPane layoutX="553.0" layoutY="76.0" prefHeight="81.0" prefWidth="133.0" style="-fx-background-color: #bdc3c7;">
                <children>
                   <Label layoutX="21.0" layoutY="14.0" text="Item Count">
                      <font>
@@ -59,7 +60,7 @@
                   </Label>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="650.0" layoutY="76.0" prefHeight="81.0" prefWidth="133.0" style="-fx-background-color: #bdc3c7;">
+            <AnchorPane layoutX="810.0" layoutY="76.0" prefHeight="81.0" prefWidth="133.0" style="-fx-background-color: #bdc3c7;">
                <children>
                   <Label layoutX="14.0" layoutY="14.0" text="Supplier Count">
                      <font>
@@ -72,8 +73,11 @@
                      </font>
                   </Label>
                </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
             </AnchorPane>
-            <JFXButton buttonType="RAISED" layoutX="691.0" layoutY="653.0" onAction="#btnExitOnAction" prefWidth="101.0" style="-fx-background-color: #fab1a0;" text="Exit" textFill="WHITE">
+            <JFXButton buttonType="RAISED" layoutX="861.0" layoutY="920.0" onAction="#btnExitOnAction" prefHeight="30.0" prefWidth="101.0" style="-fx-background-color: #fab1a0;" text="Exit" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -81,9 +85,14 @@
                   <Font name="System Bold" size="13.0" />
                </font>
             </JFXButton>
+            <ImageView fitHeight="27.0" fitWidth="31.0" layoutX="861.0" layoutY="920.0">
+               <image>
+                  <Image url="@../../../../../../../Downloads/%5Bremoval.ai%5D_6fa824f1-f23e-4f24-b224-1316f9a37a6c-images-1.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
-      <JFXButton buttonType="RAISED" contentDisplay="TOP" layoutX="30.0" layoutY="85.0" onAction="#btnCustomerOnAction" prefHeight="30.0" prefWidth="143.0" style="-fx-background-color: #52D3D8;" text="Customer" textFill="WHITE">
+      <JFXButton buttonType="RAISED" contentDisplay="TOP" layoutX="30.0" layoutY="128.0" onAction="#btnCustomerOnAction" prefHeight="40.0" prefWidth="143.0" style="-fx-background-color: #52D3D8;" text="Customer" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -91,7 +100,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" contentDisplay="TOP" layoutX="30.0" layoutY="198.0" onAction="#btnItemOnAction" prefHeight="30.0" prefWidth="143.0" style="-fx-background-color: #52D3D8;" text="Item" textFill="WHITE">
+      <JFXButton buttonType="RAISED" contentDisplay="TOP" layoutX="30.0" layoutY="328.0" onAction="#btnItemOnAction" prefHeight="40.0" prefWidth="143.0" style="-fx-background-color: #52D3D8;" text="Item" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -99,7 +108,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" contentDisplay="TOP" layoutX="30.0" layoutY="141.0" onAction="#btnPlaceOrderOnAction" prefHeight="30.0" prefWidth="143.0" style="-fx-background-color: #52D3D8;" text=" Order" textFill="WHITE">
+      <JFXButton buttonType="RAISED" contentDisplay="TOP" layoutX="30.0" layoutY="228.0" onAction="#btnPlaceOrderOnAction" prefHeight="40.0" prefWidth="143.0" style="-fx-background-color: #52D3D8;" text=" Order" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -107,7 +116,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" contentDisplay="TOP" layoutX="30.0" layoutY="254.0" onAction="#btnSupplier" prefHeight="30.0" prefWidth="143.0" style="-fx-background-color: #52D3D8;" text="Supplier" textFill="WHITE">
+      <JFXButton buttonType="RAISED" contentDisplay="TOP" layoutX="30.0" layoutY="424.0" onAction="#btnSupplier" prefHeight="40.0" prefWidth="143.0" style="-fx-background-color: #52D3D8;" text="Supplier" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -115,7 +124,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" contentDisplay="TOP" layoutX="30.0" layoutY="427.0" onAction="#btnSupplier" prefHeight="30.0" prefWidth="143.0" style="-fx-background-color: #52D3D8;" text="Contracr Order" textFill="WHITE">
+      <JFXButton buttonType="RAISED" contentDisplay="TOP" layoutX="30.0" layoutY="748.0" onAction="#btnContractOrder" prefHeight="40.0" prefWidth="143.0" style="-fx-background-color: #52D3D8;" text="Contract Order" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -123,7 +132,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" contentDisplay="TOP" layoutX="30.0" layoutY="313.0" onAction="#btnSupplier" prefHeight="30.0" prefWidth="143.0" style="-fx-background-color: #52D3D8;" text="Payment" textFill="WHITE">
+      <JFXButton buttonType="RAISED" contentDisplay="TOP" layoutX="30.0" layoutY="528.0" onAction="#btnPayment" prefHeight="40.0" prefWidth="143.0" style="-fx-background-color: #52D3D8;" text="Payment" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -131,7 +140,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </JFXButton>
-      <JFXButton buttonType="RAISED" contentDisplay="TOP" layoutX="30.0" layoutY="370.0" onAction="#btnSupplier" prefHeight="30.0" prefWidth="143.0" style="-fx-background-color: #52D3D8;" text="Quotation" textFill="WHITE">
+      <JFXButton buttonType="RAISED" contentDisplay="TOP" layoutX="30.0" layoutY="635.0" onAction="#btnQuotation" prefHeight="40.0" prefWidth="143.0" style="-fx-background-color: #52D3D8;" text="Quotation" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -144,5 +153,45 @@
             <Font name="System Bold" size="28.0" />
          </font>
       </Label>
+      <ImageView fitHeight="27.0" fitWidth="31.0" layoutX="30.0" layoutY="88.0">
+         <image>
+            <Image url="@../../../../../../../Downloads/Removal-520.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="30.0" fitWidth="31.0" layoutX="34.0" layoutY="133.0">
+         <image>
+            <Image url="@../../../../../../../Downloads/Removal-522.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="30.0" fitWidth="31.0" layoutX="39.0" layoutY="233.0">
+         <image>
+            <Image url="@../../../../../../../Downloads/%5Bremoval.ai%5D_ca51fc13-88d0-4dfc-a6b7-95bacbeecd7c-download.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="30.0" fitWidth="37.0" layoutX="36.0" layoutY="333.0">
+         <image>
+            <Image url="@../../../../../../../Downloads/%5Bremoval.ai%5D_b27d167c-e643-4ae5-bbfa-61bfd6e04ca5-download-3.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="21.0" layoutX="39.0" layoutY="432.0">
+         <image>
+            <Image url="@../../../../../../../Downloads/%5Bremoval.ai%5D_a17b5e51-8453-48a8-93c7-17747259535d-images.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="21.0" layoutX="39.0" layoutY="535.0">
+         <image>
+            <Image url="@../../../../../../../Downloads/%5Bremoval.ai%5D_6d3180a8-6328-4df1-9581-bc45adb423f4-download-2.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="30.0" fitWidth="31.0" layoutX="34.0" layoutY="640.0">
+         <image>
+            <Image url="@../../../../../../../Downloads/%5Bremoval.ai%5D_1c29bc4f-b0b0-427d-9a09-2cea8c242578-images-1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="25.0" fitWidth="21.0" layoutX="33.0" layoutY="756.0">
+         <image>
+            <Image url="@../../../../../../../Downloads/%5Bremoval.ai%5D_11297c6f-b690-4e9d-8492-aaace55d0a81-download-3.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

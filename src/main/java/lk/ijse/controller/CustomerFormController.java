@@ -1,19 +1,28 @@
-package lk.ijse.controller ;
+package lk.ijse.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lk.ijse.db.DbConnection;
+import lk.ijse.model.Customer;
+import lk.ijse.model.Tm.ContractOrderTm;
+import lk.ijse.model.Tm.CustomerTm;
+import lk.ijse.repository.CustomerRepo;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+
+import static lk.ijse.controller.LoginFormController.credintial;
 
 public class CustomerFormController {
 
@@ -27,13 +36,13 @@ public class CustomerFormController {
     private TableColumn<?, ?> colName;
 
     @FXML
-    private TableColumn<?, ?> colContact;
+    private TableColumn<?, ?> colTel;
 
     @FXML
     private AnchorPane root;
 
     @FXML
-    private TableView<?> tblCustomer;
+    private TableView<CustomerTm> tblCustomer;
 
     @FXML
     private TextField txtAddress;
@@ -46,122 +55,134 @@ public class CustomerFormController {
 
     @FXML
     private TextField txtTel;
-
-    public CustomerFormController() {
+    public void initialize() {
+        setCellValueFactory();
+        loadAllCustomers();
     }
 
-    @FXML
-    void btnSaveOnAction(ActionEvent event) {
-        String id = this.txtId.getText();
-        String name = this.txtName.getText();
-        String address = this.txtAddress.getText();
-        String tel = this.txtTel.getText();
-        String sql = "INSERT INTO customers VALUES(?, ?, ?, ?)";
+    private void loadAllCustomers() {
+        ObservableList<CustomerTm> obList = FXCollections.observableArrayList();
 
         try {
-            Connection connection = DbConnection.getInstance().getConnection();
-            PreparedStatement pstm = connection.prepareStatement(sql);
-            pstm.setObject(1, id);
-            pstm.setObject(2, name);
-            pstm.setObject(3, address);
-            pstm.setObject(4, tel);
-            boolean isSaved = pstm.executeUpdate() > 0;
-            if (isSaved) {
-                (new Alert(Alert.AlertType.CONFIRMATION, "customer saved!", new ButtonType[0])).show();
-                this.clearFields();
-            }
-        } catch (SQLException var10) {
-            (new Alert(Alert.AlertType.ERROR, var10.getMessage(), new ButtonType[0])).show();
-        }
+            List<Customer> customerList = CustomerRepo.getAll();
+            for (Customer customer : customerList) {
+                CustomerTm tm = new CustomerTm(
+                        customer.getId(),
+                        customer.getName(),
+                        customer.getAddress(),
+                        customer.getTel()
+                );
 
-    }
-
-    private void clearFields() {
-        this.txtId.setText("");
-        this.txtName.setText("");
-        this.txtAddress.setText("");
-        this.txtTel.setText("");
-    }
-
-    @FXML
-    void btnUpdateOnAction(ActionEvent event) {
-        String id = this.txtId.getText();
-        String name = this.txtName.getText();
-        String address = this.txtAddress.getText();
-        String tel = this.txtTel.getText();
-        String sql = "UPDATE customers SET name = ?, address = ?, tel = ? WHERE id = ?";
-
-        try {
-            PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-            pstm.setObject(1, name);
-            pstm.setObject(2, address);
-            pstm.setObject(3, tel);
-            pstm.setObject(4, id);
-            if (pstm.executeUpdate() > 0) {
-                (new Alert(Alert.AlertType.CONFIRMATION, "customer updated!", new ButtonType[0])).show();
-                this.clearFields();
-            }
-        } catch (SQLException var8) {
-            (new Alert(Alert.AlertType.ERROR, var8.getMessage(), new ButtonType[0])).show();
-        }
-
-    }
-
-    @FXML
-    void txtSearchOnAction(ActionEvent event) {
-        String id = this.txtId.getText();
-        String sql = "SELECT * FROM customers WHERE id = ?";
-
-        try {
-            Connection connection = DbConnection.getInstance().getConnection();
-            PreparedStatement pstm = connection.prepareStatement(sql);
-            pstm.setObject(1, id);
-            ResultSet resultSet = pstm.executeQuery();
-            if (resultSet.next()) {
-                String name = resultSet.getString(2);
-                String address = resultSet.getString(3);
-                String tel = resultSet.getString(4);
-                this.txtName.setText(name);
-                this.txtAddress.setText(address);
-                this.txtTel.setText(tel);
-            } else {
-                (new Alert(Alert.AlertType.INFORMATION, "customer id can't be find!", new ButtonType[0])).show();
+                obList.add(tm);
             }
 
-        } catch (SQLException var10) {
-            throw new RuntimeException(var10);
+            tblCustomer.setItems(obList);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    @FXML
-    void btnDeleteOnAction(ActionEvent event) {
-        String id = this.txtId.getText();
-        String sql = "DELETE FROM customers WHERE id = ?";
+    private void setCellValueFactory() {
+        colId.setCellValueFactory(new PropertyValueFactory<>("Id"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("Address"));
+        colTel.setCellValueFactory(new PropertyValueFactory<>("Contact"));
+    }
 
-        try {
-            PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-            pstm.setObject(1, id);
-            if (pstm.executeUpdate() > 0) {
-                (new Alert(Alert.AlertType.CONFIRMATION, "customer deleted!", new ButtonType[0])).show();
-                this.clearFields();
-            }
-        } catch (SQLException var5) {
-            (new Alert(Alert.AlertType.ERROR, var5.getMessage(), new ButtonType[0])).show();
-        }
+    @FXML
+    void btnBackOnAction(ActionEvent event) throws IOException {
+        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/Dashboard_form.fxml"));
+        Stage stage = (Stage) root.getScene().getWindow();
+
+        stage.setScene(new Scene(anchorPane));
+        stage.setTitle("Dashboard Form");
+        stage.centerOnScreen();
 
     }
 
     @FXML
     void btnClearOnAction(ActionEvent event) {
-        this.clearFields();
+        clearFields();
+    }
+
+    private void clearFields() {
+        txtId.setText("");
+        txtName.setText("");
+        txtAddress.setText("");
+        txtTel.setText("");
     }
 
     @FXML
-    void btnBackOnAction(ActionEvent event) throws IOException {
-        AnchorPane anchorPane = (AnchorPane)FXMLLoader.load(this.getClass().getResource("/view/dashboard_form.fxml"));
-        Stage stage = (Stage)this.root.getScene().getWindow();
-        stage.setScene(new Scene(anchorPane));
-        stage.setTitle("Dashboard Form");
-        stage.centerOnScreen();
+    void btnDeleteOnAction(ActionEvent event) {
+        String id = txtId.getText();
+
+        try {
+            boolean isDeleted = CustomerRepo.delete(id);
+            if (isDeleted) {
+                initialize();
+                new Alert(Alert.AlertType.CONFIRMATION, "customer deleted!").show();
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
     }
+
+    @FXML
+    void btnSaveOnAction(ActionEvent event) {
+        String id = txtId.getText();
+        String name = txtName.getText();
+        String address = txtAddress.getText();
+        String tel = txtTel.getText();
+        String userId = credintial[0];
+
+        Customer customer = new Customer(id, name,  address, tel,userId);
+
+
+        try {
+            boolean isSaved = CustomerRepo.save(customer);
+            if (isSaved) {
+                new Alert(Alert.AlertType.CONFIRMATION, "customer saved!").show();
+                loadAllCustomers();
+                clearFields();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    void btnUpdateOnAction(ActionEvent event) {
+        String id = txtId.getText();
+        String name = txtName.getText();
+        String address = txtAddress.getText();
+        String tel = txtTel.getText();
+
+        Customer customer = new Customer(id, name, address, tel,credintial[0]);
+
+        try {
+            boolean isUpdated = CustomerRepo.update(customer);
+            if (isUpdated) {
+                initialize();
+                new Alert(Alert.AlertType.CONFIRMATION, "customer updated!").show();
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
+    }
+
+    @FXML
+    void txtSearchOnAction(ActionEvent event) throws SQLException {
+        String id = txtId.getText();
+
+        Customer customer = CustomerRepo.searchById(id);
+        if (customer != null) {
+            txtId.setText(customer.getId());
+            txtName.setText(customer.getName());
+            txtAddress.setText(customer.getAddress());
+            txtTel.setText(customer.getTel());
+        } else {
+            new Alert(Alert.AlertType.INFORMATION, "customer not found!").show();
+        }
+    }
+
 }
