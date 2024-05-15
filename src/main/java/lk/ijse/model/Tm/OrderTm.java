@@ -1,5 +1,6 @@
 package lk.ijse.model.Tm;
 
+import com.jfoenix.controls.JFXButton;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,8 +9,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class OrderTm {
-    private String Id;
-    private String Date;
+    private String Code;
     private String Description;
+    private int Qty;
+    private double Unit_Price;
+    private double Total;
+    private JFXButton Action;
+
 }
 

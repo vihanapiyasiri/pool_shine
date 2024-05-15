@@ -261,7 +261,7 @@ public class OrderFormController {
     void btnPlaceOrderOnAction(ActionEvent event) {
         String orderId = lblOrderId.getText();
         String cusId = cmbCustomerId.getValue();
-        Date date = Date.valueOf(LocalDate.now());
+    /*    Date date = Date.valueOf(LocalDate.now());
 
         var order = new Order(orderId, cusId, date);
 
@@ -326,7 +326,12 @@ public class OrderFormController {
 
     void txtQtyOnAction(ActionEvent event) {
         btnAddToCartOnAction(event);
-
+*/
     }
 
+    public void cmbItemOnAction(ActionEvent actionEvent) {
+    }
+
+    public void cmbCustomerOnAction(ActionEvent actionEvent) {
+    }
 }

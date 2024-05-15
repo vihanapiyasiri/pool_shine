@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class PaymentTm {
     private String Id;
+    private String Date;
     private String Amount;
     private String Method;
-    private String Date;
+
 }

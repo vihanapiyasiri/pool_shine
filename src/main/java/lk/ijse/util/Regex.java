@@ -1,4 +1,4 @@
-/*package lk.ijse.util;
+package lk.ijse.util;
 
 import com.jfoenix.controls.JFXTextField;
 import javafx.scene.paint.Paint;
@@ -15,8 +15,8 @@ public class Regex {
             case ID :
                 field = "^([A-Z][0-9]{3})$";
                 break;
-            case NIC:
-                field = "^([0-9]{9}[x|X|v|V]|[0-9]{12})$";
+                case CONTACT:
+                field = "/^(\\()?\\d{3}(\\))?(-|\\s)?\\d{3}(-|\\s)\\d{4}$/";
                 break;
         }
 
@@ -49,4 +49,4 @@ public class Regex {
             return false;
         }
     }
-}*/
+}

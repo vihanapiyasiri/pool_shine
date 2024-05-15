@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class SupplierTm {
-    private String Td;
+    private String Id;
     private String Name;
     private String Address;
     private String Contact;

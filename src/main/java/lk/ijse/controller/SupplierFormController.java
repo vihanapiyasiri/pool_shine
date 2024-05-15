@@ -1,4 +1,6 @@
 package lk.ijse.controller;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,61 +9,86 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.db.DbConnection;
-import lk.ijse.db.DbConnection;
+import lk.ijse.model.Supplier;
+import lk.ijse.model.Tm.SupplierTm;
+import lk.ijse.repository.SupplierRepo;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class SupplierFormController {
-    @FXML
-    private TableColumn<?, ?> colId;
+    public TextField txtSupplierId;
+    public TextField txtTel;
+    public TextField txtPaymentterms;
+    public TableColumn <?,?> colTel;
+    public TableColumn <?,?> colTerms;
+    public TableView<SupplierTm> tblSupplier;
+    public TableColumn  <?,?> colId;
+    public TableColumn <?,?> colName;
+    public TableColumn <?,?> colAddress;
 
-    @FXML
-    private TableColumn<?, ?> colName;
-
-    @FXML
-    private TableColumn<?, ?> colAddress;
-
-    @FXML
-    private TableColumn<?, ?> colContact;
-
-    @FXML
-    private TableColumn<?, ?> colPayment_terms;
 
     @FXML
     private AnchorPane root;
 
-    @FXML
-    private TableView<?> tblSupplier;
-
-    @FXML
-    private TextField txtId;
 
     @FXML
     private TextField txtName;
 
     @FXML
     private TextField txtAddress;
+    public void initialize() {
+        setCellValueFactory();
+        loadAllSuppliers();
+    }
+    private void setCellValueFactory() {
+        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colAddress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colTel.setCellValueFactory(new PropertyValueFactory<>("tel"));
+        colTerms.setCellValueFactory(new PropertyValueFactory<>("terms"));
+    }
 
-    @FXML
-    private TextField txtContact;
+    private void loadAllSuppliers() {
+        ObservableList<SupplierTm> obList = FXCollections.observableArrayList();
 
-    @FXML
-    private TextField txtPayment_terms;
+        try {
+            List<Supplier> supplierList = SupplierRepo.getAll();
+            for (Supplier supplier : supplierList) {
+                SupplierTm tm = new SupplierTm(
+                        supplier.getId(),
+                        supplier.getName(),
+                        supplier.getAddress(),
+                        supplier.getContact(),
+                        supplier.getPayment_terms()
+                );
+
+                obList.add(tm);
+            }
+
+            tblSupplier.setItems(obList);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 
     @FXML
     void btnSaveOnAction(ActionEvent event) {
-        String id = txtId.getText();
+        String id = txtSupplierId.getText();
         String name = txtName.getText();
         String address = txtAddress.getText();
-        String Contact = txtContact.getText();
-        String Payment_terms = txtPayment_terms.getText();
+        String Contact = txtTel.getText();
+        String Payment_terms = txtPaymentterms.getText();
 
         String sql = "INSERT INTO Customer VALUES(?, ?, ?, ?, ?)";
 
@@ -86,20 +113,20 @@ public class SupplierFormController {
     }
 
     private void clearFields() {
-        txtId.setText("");
+        txtSupplierId.setText("");
         txtName.setText("");
         txtAddress.setText("");
-        txtContact.setText("");
-        txtPayment_terms.setText("");
+      txtTel.setText("");
+        txtPaymentterms.setText("");
     }
 
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
-        String id = txtId.getText();
+        String id = txtSupplierId.getText();
         String name = txtName.getText();
         String address = txtAddress.getText();
-        String Contact = txtContact.getText();
-        String Payment_terms = txtPayment_terms.getText();
+        String Contact = txtTel.getText();
+        String Payment_terms = txtPaymentterms.getText();
 
         String sql = "UPDATE Customer SET Name = ?, Address = ?, Contact = ? WHERE Customer_ID = ?";
 
@@ -124,7 +151,7 @@ public class SupplierFormController {
 
     @FXML
     void txtSearchOnAction(ActionEvent event) {
-        String id = txtId.getText();
+        String id = txtSupplierId.getText();
 
         String sql = "SELECT * FROM Customer WHERE Customer_ID = ?";
         try {
@@ -140,7 +167,7 @@ public class SupplierFormController {
 
                 txtName.setText(name);
                 txtAddress.setText(address);
-                txtContact.setText(tel);
+                txtTel.setText(tel);
             } else {
                 new Alert(Alert.AlertType.INFORMATION, "customer id can't be find!").show();
             }
@@ -151,22 +178,17 @@ public class SupplierFormController {
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
-        String id = txtId.getText();
-
-        String sql = "DELETE FROM Customer WHERE Customer_ID = ?";
+        String id = txtSupplierId.getText();
 
         try {
-            PreparedStatement pstm = DbConnection.getInstance().getConnection()
-                    .prepareStatement(sql);
-            pstm.setObject(1, id);
-
-            if(pstm.executeUpdate() > 0) {
-                new Alert(Alert.AlertType.CONFIRMATION, "customer deleted!").show();
-                clearFields();
+            boolean isDeleted = SupplierRepo.delete(id);
+            if (isDeleted) {
+                new Alert(Alert.AlertType.CONFIRMATION, "supplier deleted!").show();
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
+
     }
 
     @FXML

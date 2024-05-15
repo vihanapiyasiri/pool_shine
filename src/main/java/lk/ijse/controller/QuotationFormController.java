@@ -13,7 +13,7 @@ import lk.ijse.repository.CustomerRepo;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import static jdk.internal.misc.OSEnvironment.initialize;
+//import static jdk.internal.misc.OSEnvironment.initialize;
 import static lk.ijse.controller.LoginFormController.credintial;
 
 public class QuotationFormController {
@@ -71,7 +71,7 @@ public class QuotationFormController {
         try {
             boolean isDeleted = CustomerRepo.delete(id);
             if (isDeleted) {
-                initialize();
+               // initialize();
                 new Alert(Alert.AlertType.CONFIRMATION, "Quotation deleted!").show();
             }
         } catch (SQLException e) {
@@ -82,15 +82,15 @@ public class QuotationFormController {
     @FXML
     void btnSaveOnAction(ActionEvent event) {
         String id = txtQuotationId.getText();
-        String date = txtDate.getText();
+       // String date = txtDate.getText();
         String amount = txtAmount.getText();
        // String tel = txtTel.getText();
         String userId = credintial[0];
 
-        Customer customer = new Customer(id, name,  address, tel,userId);
+       // Customer customer = new Customer(id, name,  address, tel,userId);
 
 
-        try {
+       /* try {
             boolean isSaved = CustomerRepo.save(customer);
             if (isSaved) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Quotation saved!").show();
@@ -133,7 +133,12 @@ public class QuotationFormController {
             //txtTel.setText(customer.getTel());
         } else {
             new Alert(Alert.AlertType.INFORMATION, "Quotation not found!").show();
-        }
+        }*/
     }
 
+    public void btnUpdateOnAction(ActionEvent actionEvent) {
+    }
+
+    public void codeSearchOnAction(ActionEvent actionEvent) {
+    }
 }

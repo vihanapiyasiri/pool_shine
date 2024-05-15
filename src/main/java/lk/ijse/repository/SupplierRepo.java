@@ -74,7 +74,7 @@ public class SupplierRepo {
         return pstm.executeUpdate() > 0;
     }
 
-    public static List<Customer> getAll() throws SQLException {
+    public static List<lk.ijse.model.Supplier> getAll() throws SQLException {
         String sql = "SELECT * FROM Customer";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection()

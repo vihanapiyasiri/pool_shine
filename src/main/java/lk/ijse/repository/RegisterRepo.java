@@ -87,8 +87,8 @@ public class RegisterRepo {
             String Address = resultSet.getString(3);
             String Contact = resultSet.getString(4);
 
-            Customer customer = new Customer(Customer_ID,Name,Address,Contact);
-            customersList.add(customer);
+            //Customer customer = new Customer(Customer_ID,Name,Address,Contact);
+            //customersList.add(customer);
         }
         return customersList;
     }

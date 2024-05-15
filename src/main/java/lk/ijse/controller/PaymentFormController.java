@@ -194,5 +194,7 @@ public class PaymentFormController {
             }
         }
 
+    public void codeSearchOnAction(ActionEvent actionEvent) {
     }
+}
 
