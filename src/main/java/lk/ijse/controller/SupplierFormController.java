@@ -47,7 +47,7 @@ public class SupplierFormController {
     private TextField txtAddress;
     public void initialize() {
         setCellValueFactory();
-        loadAllSuppliers();
+        //loadAllSuppliers();
     }
     private void setCellValueFactory() {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -57,7 +57,7 @@ public class SupplierFormController {
         colTerms.setCellValueFactory(new PropertyValueFactory<>("terms"));
     }
 
-    private void loadAllSuppliers() {
+   /* private void loadAllSuppliers() {
         ObservableList<SupplierTm> obList = FXCollections.observableArrayList();
 
         try {
@@ -90,25 +90,17 @@ public class SupplierFormController {
         String Contact = txtTel.getText();
         String Payment_terms = txtPaymentterms.getText();
 
-        String sql = "INSERT INTO Customer VALUES(?, ?, ?, ?, ?)";
+        Supplier s1 = new Supplier(id, name, address, Contact,Payment_terms);
 
         try {
-            Connection connection = DbConnection.getInstance().getConnection();
-            PreparedStatement pstm = connection.prepareStatement(sql);
-
-            pstm.setObject(1, id);
-            pstm.setObject(2, name);
-            pstm.setObject(3, address);
-            pstm.setObject(4, Contact);
-            pstm.setObject(4, Payment_terms);
-
-            boolean isSaved = pstm.executeUpdate() > 0;
-            if(isSaved) {
-                new Alert(Alert.AlertType.CONFIRMATION, "customer saved!").show();
+            boolean isSaved = SupplierRepo.save(s1);
+            if (isSaved) {
+                new Alert(Alert.AlertType.CONFIRMATION, "supplier saved!").show();
+                initialize();
                 clearFields();
             }
         } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+            throw new RuntimeException(e);
         }
     }
 
@@ -125,23 +117,23 @@ public class SupplierFormController {
         String id = txtSupplierId.getText();
         String name = txtName.getText();
         String address = txtAddress.getText();
-        String Contact = txtTel.getText();
-        String Payment_terms = txtPaymentterms.getText();
+        String contact = txtTel.getText();
+        String paymentTerms = txtPaymentterms.getText();
 
-        String sql = "UPDATE Customer SET Name = ?, Address = ?, Contact = ? WHERE Customer_ID = ?";
+        String sql = "UPDATE supplier SET Name = ?, Address = ?, Contact = ?, Terms = ? WHERE Supplier_ID = ?";
 
         try {
             PreparedStatement pstm = DbConnection.getInstance().getConnection()
                     .prepareStatement(sql);
 
-            pstm.setObject(4, id);
             pstm.setObject(1, name);
             pstm.setObject(2, address);
-            pstm.setObject(3, Contact);
-            pstm.setObject(4, Payment_terms);
+            pstm.setObject(3, contact);
+            pstm.setObject(4, paymentTerms);
+            pstm.setObject(5, id);
 
             if(pstm.executeUpdate() > 0) {
-                new Alert(Alert.AlertType.CONFIRMATION, "customer updated!").show();
+                new Alert(Alert.AlertType.CONFIRMATION, "Supplier updated!").show();
                 clearFields();
             }
         } catch (SQLException e) {
@@ -149,11 +141,12 @@ public class SupplierFormController {
         }
     }
 
+
     @FXML
     void txtSearchOnAction(ActionEvent event) {
         String id = txtSupplierId.getText();
 
-        String sql = "SELECT * FROM Customer WHERE Customer_ID = ?";
+        String sql = "SELECT * FROM supplier WHERE Supplier_ID = ?";
         try {
             Connection connection = DbConnection.getInstance().getConnection();
             PreparedStatement pstm = connection.prepareStatement(sql);
@@ -161,20 +154,23 @@ public class SupplierFormController {
 
             ResultSet resultSet = pstm.executeQuery();
             if(resultSet.next()) {
-                String name = resultSet.getString(2);
-                String address = resultSet.getString(3);
-                String tel = resultSet.getString(4);
+                String name = resultSet.getString("Name");
+                String address = resultSet.getString("Address");
+                String tel = resultSet.getString("Contact");
+                String terms = resultSet.getString("Terms");
 
                 txtName.setText(name);
                 txtAddress.setText(address);
                 txtTel.setText(tel);
+                txtPaymentterms.setText(terms);
             } else {
-                new Alert(Alert.AlertType.INFORMATION, "customer id can't be find!").show();
+                new Alert(Alert.AlertType.INFORMATION, "Supplier ID not found!").show();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
@@ -204,5 +200,5 @@ public class SupplierFormController {
         stage.setScene(new Scene(anchorPane));
         stage.setTitle("Dashboard Form");
         stage.centerOnScreen();
-    }
+    }*/
 }
