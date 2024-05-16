@@ -7,6 +7,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="rootNode" prefHeight="589.0" prefWidth="668.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.DashboardFormController">
@@ -31,6 +32,9 @@
                      </font>
                   </Label>
                </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
             </AnchorPane>
             <AnchorPane layoutX="293.0" layoutY="76.0" prefHeight="81.0" prefWidth="133.0" style="-fx-background-color: #bdc3c7;">
                <children>
@@ -46,7 +50,7 @@
                   </Label>
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="553.0" layoutY="76.0" prefHeight="81.0" prefWidth="133.0" style="-fx-background-color: #bdc3c7;">
+            <AnchorPane layoutX="553.0" layoutY="76.0" prefHeight="81.0" prefWidth="133.0" style="-fx-background-color: #bdc3c7;" AnchorPane.bottomAnchor="843.0">
                <children>
                   <Label layoutX="21.0" layoutY="14.0" text="Item Count">
                      <font>
@@ -90,6 +94,11 @@
                   <Image url="@../../../../../../../Downloads/%5Bremoval.ai%5D_6fa824f1-f23e-4f24-b224-1316f9a37a6c-images-1.png" />
                </image>
             </ImageView>
+            <AnchorPane fx:id="chart" layoutX="74.0" layoutY="391.0" prefHeight="373.0" prefWidth="845.0">
+               <children>
+                  <Line fx:id="linechart" endX="634.0" layoutX="195.0" layoutY="359.0" startX="-181.0" />
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
       <JFXButton buttonType="RAISED" contentDisplay="TOP" layoutX="30.0" layoutY="128.0" onAction="#btnCustomerOnAction" prefHeight="40.0" prefWidth="143.0" style="-fx-background-color: #52D3D8;" text="Customer" textFill="WHITE">
@@ -148,9 +157,9 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </JFXButton>
-      <Label layoutX="30.0" layoutY="24.0" text="Dashboard" underline="true">
+      <Label layoutX="47.0" layoutY="32.0" text="Welcome" underline="true">
          <font>
-            <Font name="System Bold" size="28.0" />
+            <Font name="Britannic Bold" size="28.0" />
          </font>
       </Label>
       <ImageView fitHeight="27.0" fitWidth="31.0" layoutX="30.0" layoutY="88.0">

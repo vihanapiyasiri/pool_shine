@@ -13,7 +13,7 @@ import java.util.function.Supplier;
 
 
 public class SupplierRepo {
-   /* public static boolean save(Supplier supplier) throws SQLException {
+  public static boolean save(Supplier supplier) throws SQLException {
         String sql = "INSERT INTO supplier VALUES(?, ?, ?,?,?)";
 
        Connection connection = DbConnection.getInstance().getConnection();
@@ -40,10 +40,10 @@ public class SupplierRepo {
             String name = resultSet.getString(2);
             String terms = resultSet.getString(3);
             String address = resultSet.getString(4);
-            String tel = resultSet.getString(5);
+            String contact = resultSet.getString(5);
 
 
-            Supplier supplier = new Supplier(supplierId,name,terms,address,tel);
+            Supplier supplier = new Supplier(supplierId,name,terms,address,contact);
 
             return supplier;
         }
@@ -86,10 +86,12 @@ public class SupplierRepo {
             String name = resultSet.getString(2);
             String terms = resultSet.getString(3);
             String address = resultSet.getString(4);
-            String tel = resultSet.getString(5);
+            String contact = resultSet.getString(5);
 
 
-            Supplier supplier = new Supplier(id,name,terms,address,tel);
+            Supplier supplier = new Supplier(id,name,terms,address,contact);{
+
+            }
             supplierList.add(supplier);
         }
         return supplierList;
@@ -107,6 +109,6 @@ public class SupplierRepo {
             idList.add(id);
         }
         return idList;
-    }*/
+    }
 }
 

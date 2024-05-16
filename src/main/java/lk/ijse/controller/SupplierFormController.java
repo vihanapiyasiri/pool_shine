@@ -57,7 +57,8 @@ public class SupplierFormController {
         colTerms.setCellValueFactory(new PropertyValueFactory<>("terms"));
     }
 
-   /* private void loadAllSuppliers() {
+
+    private void loadAllSuppliers() {
         ObservableList<SupplierTm> obList = FXCollections.observableArrayList();
 
         try {
@@ -200,5 +201,5 @@ public class SupplierFormController {
         stage.setScene(new Scene(anchorPane));
         stage.setTitle("Dashboard Form");
         stage.centerOnScreen();
-    }*/
+    }
 }
