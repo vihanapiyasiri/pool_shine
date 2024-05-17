@@ -7,13 +7,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lk.ijse.model.Customer;
-import lk.ijse.repository.CustomerRepo;
+import lk.ijse.model.Quotation;
+import lk.ijse.model.Quotation;
+import lk.ijse.repository.QuotationRepo;
+import lk.ijse.repository.QuotationRepo;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
 //import static jdk.internal.misc.OSEnvironment.initialize;
+import static jdk.internal.misc.OSEnvironment.initialize;
 import static lk.ijse.controller.LoginFormController.credintial;
 
 public class QuotationFormController {
@@ -62,6 +65,8 @@ public class QuotationFormController {
 
     private void clearField() {
         txtAmount.setText("");
+        txtQuotationId.setText("");
+        txtDate.setText("");
     }
 
     @FXML
@@ -69,7 +74,7 @@ public class QuotationFormController {
         String id = txtQuotationId.getText();
 
         try {
-            boolean isDeleted = CustomerRepo.delete(id);
+            boolean isDeleted = QuotationRepo.delete(id);
             if (isDeleted) {
                // initialize();
                 new Alert(Alert.AlertType.CONFIRMATION, "Quotation deleted!").show();
@@ -82,19 +87,18 @@ public class QuotationFormController {
     @FXML
     void btnSaveOnAction(ActionEvent event) {
         String id = txtQuotationId.getText();
-       // String date = txtDate.getText();
+        String date = txtDate.getText();
         String amount = txtAmount.getText();
-       // String tel = txtTel.getText();
         String userId = credintial[0];
 
-       // Customer customer = new Customer(id, name,  address, tel,userId);
+        Quotation quotation = new Quotation(id, date, amount, userId);
 
 
-       /* try {
-            boolean isSaved = CustomerRepo.save(customer);
+        try {
+            boolean isSaved = QuotationRepo.save(quotation);
             if (isSaved) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Quotation saved!").show();
-                loadAllCustomers();
+                loadAllQuotation();
                 clearFields();
             }
         } catch (SQLException e) {
@@ -102,43 +106,38 @@ public class QuotationFormController {
         }
     }
 
-    @FXML
-    void btnUpdateOnAction(ActionEvent event) {
-        String id = txtQuotationId.getText();
+
+    }
+
+    public void btnUpdateOnAction(ActionEvent actionEvent) {
+        String id = txtId.getText();
         String date = txtDate.getText();
         String amount = txtAmount.getText();
-       // String tel = txtTel.getText();
 
-        Customer customer = new Customer(id, name, address,credintial[0]);
+       Quotation quotation = new Quotation(id, date, amount, credintial[0]);
 
         try {
-            boolean isUpdated = CustomerRepo.update(customer);
+            boolean isUpdated = QuotationRepo.update(quotation);
             if (isUpdated) {
                 initialize();
-                new Alert(Alert.AlertType.CONFIRMATION, "Quotation updated!").show();
+                new Alert(Alert.AlertType.CONFIRMATION, "quotation updated!").show();
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
-    @FXML
-    void txtSearchOnAction(ActionEvent event) throws SQLException {
-        String id = txtQuotationId.getText();
-
-        Customer customer = CustomerRepo.searchById(id);
-        if (customer != null) {
-            txtQuotationId.setText(customer.getId());
-            txtDate.setText(customer.getName());
-            txtAmount.setText(customer.getAddress());
-            //txtTel.setText(customer.getTel());
-        } else {
-            new Alert(Alert.AlertType.INFORMATION, "Quotation not found!").show();
-        }*/
-    }
-
-    public void btnUpdateOnAction(ActionEvent actionEvent) {
-    }
 
     public void codeSearchOnAction(ActionEvent actionEvent) {
+        String id = txtId.getText();
+
+        Quotation quotation = QuotationRepo.searchById(id);
+        if (quotation != null) {
+            txtQuotationId.setText(quotation.getId());
+            txtDate.setText(quotation.getName());
+            txtAmount.setText(quotation.getAddress());
+        } else {
+            new Alert(Alert.AlertType.INFORMATION, "quotation not found!").show();
+        }
+
     }
 }

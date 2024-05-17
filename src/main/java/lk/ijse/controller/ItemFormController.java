@@ -1,20 +1,29 @@
 package lk.ijse.controller ;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.db.DbConnection;
+import lk.ijse.model.Customer;
+import lk.ijse.model.Item;
+import lk.ijse.model.Tm.CustomerTm;
 import lk.ijse.model.Tm.ItemTm;
+import lk.ijse.repository.CustomerRepo;
+import lk.ijse.repository.ItemRepo;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class ItemFormController {
 
@@ -32,29 +41,42 @@ public class ItemFormController {
     @FXML
     private AnchorPane root;
 
-    @FXML
-    void btnSaveOnAction(ActionEvent event) {
-        String id = txtItemId.getText();
-        String name = txtName.getText();
-        String desc = txtDescription.getText();
-        String price = txtUnitPrice.getText();
-        String sql = "INSERT INTO item VALUES(?, ?, ?, ?)";
+    public void initialize() {
+        setCellValueFactory();
+        loadAllItems();
+    }
+
+    private void loadAllItems() {
+        ObservableList<ItemTm> obList = FXCollections.observableArrayList();
 
         try {
-            Connection connection = DbConnection.getInstance().getConnection();
-            PreparedStatement pstm = connection.prepareStatement(sql);
-            pstm.setObject(1, id);
-            pstm.setObject(2, name);
-            pstm.setObject(3, desc);
-            pstm.setObject(4, price);
-            boolean isSaved = pstm.executeUpdate() > 0;
-            if (isSaved) {
-                (new Alert(Alert.AlertType.CONFIRMATION, "Item saved!", new ButtonType[0])).show();
-                this.clearFields();
+            List<Item> itemList = ItemRepo.getAll();
+            for (Item item : itemList) {
+                ItemTm tm = new ItemTm(
+                        item.getItemId(),
+                        item.getName(),
+                        item.getDesc(),
+                        String.valueOf(item.getPrice())
+                );
+
+                obList.add(tm);
             }
-        } catch (SQLException var10) {
-            (new Alert(Alert.AlertType.ERROR, var10.getMessage(), new ButtonType[0])).show();
+
+            tblItem.setItems(obList);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
+    }
+
+    private void setCellValueFactory() {
+        colCode.setCellValueFactory(new PropertyValueFactory<>("Id"));
+        colDescription.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        colUnitPrice.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        colQtyOnHand.setCellValueFactory(new PropertyValueFactory<>("Price"));
+    }
+
+    @FXML
+    void btnSaveOnAction(ActionEvent event) {
 
     }
 
@@ -115,7 +137,7 @@ public class ItemFormController {
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
         String id = this.txtItemId.getText();
-        String sql = "DELETE FROM customers WHERE id = ?";
+        String sql = "DELETE FROM item WHERE Item_ID = ?";
 
         try {
             PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);

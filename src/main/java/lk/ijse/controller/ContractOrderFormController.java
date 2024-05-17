@@ -61,7 +61,7 @@ public class ContractOrderFormController {
             pstm.setObject(3, address);
             boolean isSaved = pstm.executeUpdate() > 0;
             if (isSaved) {
-                (new Alert(Alert.AlertType.CONFIRMATION, "customer saved!", new ButtonType[0])).show();
+                (new Alert(Alert.AlertType.CONFIRMATION, "ContractOrder saved!", new ButtonType[0])).show();
                 this.clearFields();
             }
         } catch (SQLException var10) {
@@ -70,17 +70,12 @@ public class ContractOrderFormController {
 
     }
 
-    private void clearFields() {
-        this.txtContractOrderId.setText("");
-        this.txtAmount.setText("");
-    }
-
     @FXML
     void btnUpdateOnAction(ActionEvent event) {
         String id = this.txtContractOrderId.getText();
         String date = String.valueOf(this.txtDate.getValue());
         String address = this.txtAmount.getText();
-        String sql = "UPDATE contract_order SET Id = ?, Date = ?, Amount = ? WHERE id = ?";
+        String sql = "UPDATE ContractOrder SET Id = ?, Date = ?, Amount = ? WHERE id = ?";
 
         try {
             PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
@@ -89,7 +84,7 @@ public class ContractOrderFormController {
             pstm.setObject(3, 00);
             pstm.setObject(4, id);
             if (pstm.executeUpdate() > 0) {
-                (new Alert(Alert.AlertType.CONFIRMATION, "customer updated!", new ButtonType[0])).show();
+                (new Alert(Alert.AlertType.CONFIRMATION, "ContractOrder updated!", new ButtonType[0])).show();
                 this.clearFields();
             }
         } catch (SQLException var8) {
@@ -101,7 +96,7 @@ public class ContractOrderFormController {
     @FXML
     void txtSearchOnAction(ActionEvent event) {
         String id = this.txtContractOrderId.getText();
-        String sql = "SELECT * FROM customers WHERE id = ?";
+        String sql = "SELECT * FROM ContractOrders WHERE id = ?";
 
         try {
             Connection connection = DbConnection.getInstance().getConnection();
@@ -115,7 +110,7 @@ public class ContractOrderFormController {
                 //this.txtDate.setText(name);
                 this.txtAmount.setText(address);
             } else {
-                (new Alert(Alert.AlertType.INFORMATION, "customer id can't be find!", new ButtonType[0])).show();
+                (new Alert(Alert.AlertType.INFORMATION, "ContractOrder id can't be find!", new ButtonType[0])).show();
             }
 
         } catch (SQLException var10) {
@@ -126,13 +121,13 @@ public class ContractOrderFormController {
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
         String id = this.txtContractOrderId.getText();
-        String sql = "DELETE FROM customers WHERE id = ?";
+        String sql = "DELETE FROM ContractOrders WHERE id = ?";
 
         try {
             PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
             pstm.setObject(1, id);
             if (pstm.executeUpdate() > 0) {
-                (new Alert(Alert.AlertType.CONFIRMATION, "customer deleted!", new ButtonType[0])).show();
+                (new Alert(Alert.AlertType.CONFIRMATION, "ContractOrder deleted!", new ButtonType[0])).show();
                 this.clearFields();
             }
         } catch (SQLException var5) {
@@ -144,6 +139,11 @@ public class ContractOrderFormController {
     @FXML
     void btnClearOnAction(ActionEvent event) {
         this.clearFields();
+    }
+    private void clearFields() {
+        txtDate.setText("");
+        txtContractOrderId.setText("");
+        txtAmount.setText("");
     }
 
     @FXML

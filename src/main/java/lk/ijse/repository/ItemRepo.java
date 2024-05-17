@@ -72,24 +72,24 @@ public class ItemRepo {
     }
 
     public static List<Item> getAll() throws SQLException {
-        String sql = "SELECT * FROM Customer";
+        String sql = "SELECT * FROM Item";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
                 .prepareStatement(sql);
 
         ResultSet resultSet = pstm.executeQuery();
 
-        List<Item> customersList = new ArrayList<>();
+        List<Item> itemList = new ArrayList<>();
         while (resultSet.next()) {
-            String Customer_ID = resultSet.getString(1);
+            String Item_ID = resultSet.getString(1);
             String Name= resultSet.getString(2);
-            String Address = resultSet.getString(3);
-            double Contact = resultSet.getDouble(4);
+            String Description = resultSet.getString(3);
+            double Price = resultSet.getDouble(4);
 
-            Item customer = new Item(Customer_ID,Name,Address,Contact);
-            customersList.add(customer);
+            Item item = new Item(Item_ID,Name,Description,Price);
+            itemList.add(item);
         }
-        return customersList;
+        return itemList;
     }
 
     public static List<String> getIds() throws SQLException {

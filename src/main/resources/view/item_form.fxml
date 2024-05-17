@@ -40,10 +40,10 @@
       <TextField fx:id="txtUnitPrice" layoutX="519.0" layoutY="201.0" prefHeight="35.0" prefWidth="420.0" />
       <TableView fx:id="tblItem" layoutX="66.0" layoutY="299.0" prefHeight="513.0" prefWidth="874.0">
          <columns>
-            <TableColumn fx:id="colCode" prefWidth="124.0" text="Item Id" />
-            <TableColumn fx:id="colDescription" prefWidth="239.0" text="Item Name" />
+            <TableColumn fx:id="colCode" prefWidth="124.0" text="Id" />
+            <TableColumn fx:id="colDescription" prefWidth="239.0" text="Name" />
             <TableColumn fx:id="colUnitPrice" prefWidth="329.0" text="Description" />
-            <TableColumn fx:id="colQtyOnHand" prefWidth="182.0" text="Unit Price" />
+            <TableColumn fx:id="colQtyOnHand" prefWidth="182.0" text="Price" />
          </columns>
       </TableView>
       <JFXButton buttonType="RAISED" layoutX="879.0" layoutY="923.0" onAction="#btnBackOnAction" prefHeight="35.0" prefWidth="61.0" style="-fx-background-color: grey;" text="Back">

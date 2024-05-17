@@ -14,8 +14,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.model.Customer;
+import lk.ijse.model.Payment;
 import lk.ijse.model.Tm.CustomerTm;
+import lk.ijse.model.Tm.PaymentTm;
 import lk.ijse.repository.CustomerRepo;
+import lk.ijse.repository.PaymentRepo;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -66,36 +69,36 @@ public class PaymentFormController {
 
         public void initialize() {
             setCellValueFactory();
-            loadAllCustomers();
+            loadAllPayments();
         }
 
-        private void loadAllCustomers() {
-            ObservableList<CustomerTm> obList = FXCollections.observableArrayList();
+        private void loadAllPayments() {
+            ObservableList<PaymentTm> obList = FXCollections.observableArrayList();
 
             try {
-                List<Customer> customerList = CustomerRepo.getAll();
-                for (Customer customer : customerList) {
-                    CustomerTm tm = new CustomerTm(
-                            customer.getId(),
-                            customer.getName(),
-                            customer.getAddress(),
-                            customer.getTel()
+                List<Payment> paymentList = PaymentRepo.getAll();
+                for (Payment payment : paymentList) {
+                    PaymentTm tm = new CustomerTm(
+                            payment.getPaymentId(),
+                            payment.getAmount(),
+                            payment.getMethod(),
+                            payment.getDate()
                     );
 
                     obList.add(tm);
                 }
 
-                tblCustomer.setItems(obList);
+                tblPayment.setItems(obList);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         }
 
         private void setCellValueFactory() {
-            colId.setCellValueFactory(new PropertyValueFactory<>("Id"));
+            colCode.setCellValueFactory(new PropertyValueFactory<>("Id"));
             colName.setCellValueFactory(new PropertyValueFactory<>("Name"));
             colAddress.setCellValueFactory(new PropertyValueFactory<>("Address"));
-            colTel.setCellValueFactory(new PropertyValueFactory<>("Contact"));
+            txtDate.setCellValueFactory(new PropertyValueFactory<>("Contact"));
         }
 
         @FXML
@@ -115,21 +118,21 @@ public class PaymentFormController {
         }
 
         private void clearFields() {
-            txtId.setText("");
-            txtName.setText("");
-            txtAddress.setText("");
-            txtTel.setText("");
+            txtPaymentId.setText("");
+            txtAmount.setText("");
+            txtMethod.setText("");
+            txtDate.setText("");
         }
 
         @FXML
         void btnDeleteOnAction(ActionEvent event) {
-            String id = txtId.getText();
+            String id = txtPaymentId.getText();
 
             try {
-                boolean isDeleted = CustomerRepo.delete(id);
+                boolean isDeleted = PaymentRepo.delete(id);
                 if (isDeleted) {
                     initialize();
-                    new Alert(Alert.AlertType.CONFIRMATION, "customer deleted!").show();
+                    new Alert(Alert.AlertType.CONFIRMATION, "payment deleted!").show();
                 }
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -138,20 +141,20 @@ public class PaymentFormController {
 
         @FXML
         void btnSaveOnAction(ActionEvent event) {
-            String id = txtId.getText();
-            String name = txtName.getText();
-            String address = txtAddress.getText();
-            String tel = txtTel.getText();
+            String id = txtPaymentId.getText();
+            String amount = txtAmount.getText();
+            String method = txtMethod.getText();
+            String date = txtDate.getText();
             String userId = credintial[0];
 
-            Customer customer = new Customer(id, name, address, tel, userId);
+            Customer customer = new Customer(id, amount, address, tel, userId);
 
 
             try {
                 boolean isSaved = CustomerRepo.save(customer);
                 if (isSaved) {
-                    new Alert(Alert.AlertType.CONFIRMATION, "customer saved!").show();
-                    loadAllCustomers();
+                    new Alert(Alert.AlertType.CONFIRMATION, "payment saved!").show();
+                    loadAllPayments();
                     clearFields();
                 }
             } catch (SQLException e) {
@@ -161,18 +164,18 @@ public class PaymentFormController {
 
         @FXML
         void btnUpdateOnAction(ActionEvent event) {
-            String id = txtId.getText();
-            String name = txtName.getText();
-            String address = txtAddress.getText();
-            String tel = txtTel.getText();
+            String id = txtPaymentId.getText();
+            String name = txtAmount.getText();
+            String address = txtMethod.getText();
+            String tel = txtDate.getText();
 
-            Customer customer = new Customer(id, name, address, tel, credintial[0]);
+           Payment payment = new Payment(PaymentId, name, address, tel, credintial[0]);
 
             try {
-                boolean isUpdated = CustomerRepo.update(customer);
+                boolean isUpdated = PaymentrRepo.update(payment);
                 if (isUpdated) {
                     initialize();
-                    new Alert(Alert.AlertType.CONFIRMATION, "customer updated!").show();
+                    new Alert(Alert.AlertType.CONFIRMATION, "payment updated!").show();
                 }
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -183,14 +186,14 @@ public class PaymentFormController {
         void txtSearchOnAction(ActionEvent event) throws SQLException {
             String id = txtId.getText();
 
-            Customer customer = CustomerRepo.searchById(id);
+            Customer customer =PaymentRepo.searchById(id);
             if (customer != null) {
-                txtId.setText(customer.getId());
-                txtName.setText(customer.getName());
-                txtAddress.setText(customer.getAddress());
-                txtTel.setText(customer.getTel());
+                txtPaymentId.setText(payment.getId());
+                txtAmount.setText(payment.getName());
+                txtMethod.setText(payment.getAddress());
+                txtDate.setText(payment.getTel());
             } else {
-                new Alert(Alert.AlertType.INFORMATION, "customer not found!").show();
+                new Alert(Alert.AlertType.INFORMATION, "payment not found!").show();
             }
         }
 

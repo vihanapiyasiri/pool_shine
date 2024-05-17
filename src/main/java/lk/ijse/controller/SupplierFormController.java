@@ -69,7 +69,7 @@ public class SupplierFormController {
                         supplier.getName(),
                         supplier.getAddress(),
                         supplier.getContact(),
-                        supplier.getPayment_terms()
+                        supplier.getPaymentTerms()
                 );
 
                 obList.add(tm);
@@ -191,6 +191,12 @@ public class SupplierFormController {
     @FXML
     void btnClearOnAction(ActionEvent event) {
         clearFields();
+    }
+    private void clearField() {
+        txtPaymentterms.setText("");
+        txtName.setText("");
+        txtAddress.setText("");
+        txtTel.setText("");
     }
 
     @FXML

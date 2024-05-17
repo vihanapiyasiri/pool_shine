@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class PaymentTm {
-    private String Id;
+    private String  PaymentId;
     private String Date;
     private String Amount;
     private String Method;

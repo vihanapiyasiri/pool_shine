@@ -3,7 +3,7 @@ package lk.ijse.model.Tm;
 import com.jfoenix.controls.JFXButton;
 
 public class CartTm {
-    public CartTm(String code, String description, int qty, double unitPrice, double total, JFXButton btnRemove) {
+    public CartTm(String code, String description, int qty, double unitPrice, double total) {
 
     }
 

@@ -1,6 +1,7 @@
 package lk.ijse.repository;
 
 import lk.ijse.db.DbConnection;
+import lk.ijse.model.Supplier;
 
 
 import java.sql.Connection;
@@ -9,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Supplier;
 
 
 public class SupplierRepo {
@@ -18,7 +18,7 @@ public class SupplierRepo {
 
        Connection connection = DbConnection.getInstance().getConnection();
         PreparedStatement pstm = connection.prepareStatement(sql);
-        pstm.setObject(1, supplier.getSupplierId());
+        pstm.setObject(1, supplier.getId());
         pstm.setObject(2, supplier.getName());
         pstm.setObject(3, supplier.getPaymentTerms());
         pstm.setObject(4, supplier.getAddress());
@@ -59,7 +59,7 @@ public class SupplierRepo {
         pstm.setObject(2, supplier.getAddress());
         pstm.setObject(3, supplier.getPaymentTerms());
         pstm.setObject(4, supplier.getAddress());
-        pstm.setObject(5, supplier.getSupplierId());
+        pstm.setObject(5, supplier.getId());
 
 
         return pstm.executeUpdate() > 0;
@@ -73,7 +73,7 @@ public class SupplierRepo {
 
         return pstm.executeUpdate() > 0;
     }
-    public static List<Supplier> getAll() throws SQLException {
+    public static List<lk.ijse.model.Supplier> getAll() throws SQLException {
         String sql = "SELECT * FROM supplier";
         PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
 
