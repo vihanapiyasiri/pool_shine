@@ -1,7 +1,8 @@
 package lk.ijse.repository;
 
 import lk.ijse.db.DbConnection;
-import lk.ijse.model.Customer;
+import lk.ijse.model.ContractOrder;
+import lk.ijse.model.ContractOrder;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,59 +13,55 @@ import java.util.List;
 
 
 public class ContractOrderRepo {
-    public static boolean save(Customer customer) throws SQLException {
-//        In here you can now save your customer
-        String sql = "INSERT INTO Customer VALUES(?, ?, ?, ?)";
+    public static boolean save(ContractOrder contractorder) throws SQLException {
+//        In here you can now save your contractorder
+        String sql = "INSERT INTO ContractOrder VALUES(?, ?, ?)";
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
                 .prepareStatement(sql);
 
-        pstm.setObject(1, customer.getId());
-        pstm.setObject(2, customer.getName());
-        pstm.setObject(3, customer.getAddress());
-        pstm.setObject(4, customer.getTel());
+        pstm.setObject(1, contractorder.getId());
+        pstm.setObject(2, contractorder.getDate());
+        pstm.setObject(3, contractorder.getAmount());
 
         return pstm.executeUpdate() > 0;
 
     }
 
-    public static boolean update(Customer customer) throws SQLException {
-        String sql = "UPDATE Customer SET Name = ?, Address  = ?, Contact = ? WHERE Customer_ID = ?";
+    public static boolean update(ContractOrder contractorder) throws SQLException {
+        String sql = "UPDATE ContractOrder SET Id = ?, Name  = ?, Amount = ? WHERE ContractOrder_ID = ?";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
                 .prepareStatement(sql);
 
-        pstm.setObject(1, customer.getName());
-        pstm.setObject(2, customer.getAddress());
-        pstm.setObject(3, customer.getTel());
-        pstm.setObject(4, customer.getId());
-
+        pstm.setObject(1, contractorder.getId());
+        pstm.setObject(2, contractorder.getDate());
+        pstm.setObject(3, contractorder.getAmount());
         return pstm.executeUpdate() > 0;
     }
 
-    public static Customer searchById(String id) throws SQLException {
-        String sql = "SELECT * FROM Customer WHERE Customer_ID = ?";
+    public static ContractOrder searchById(String id) throws SQLException {
+        String sql = "SELECT * FROM ContractOrder WHERE ContractOrder_ID = ?";
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
                 .prepareStatement(sql);
 
         pstm.setObject(1, id);
         ResultSet resultSet = pstm.executeQuery();
 
-        Customer customer = null;
+        ContractOrder contractorder = null;
 
         if (resultSet.next()) {
-            String Customer_ID = resultSet.getString(1);
-            String Name= resultSet.getString(2);
-            String Address = resultSet.getString(3);
-            String Contact = resultSet.getString(4);
-            String userId = resultSet.getString(5);
+            String ID = resultSet.getString(1);
+            String Date= resultSet.getString(2);
+            String Amount = resultSet.getString(3);
+            String Customer_Id = resultSet.getString(4);
 
-            customer = new Customer(Customer_ID,Name,Address,Contact,userId);
+            contractorder = new ContractOrder(ID,Date,Amount,Customer_Id);
         }
-        return customer;
+        return contractorder;
     }
 
     public static boolean delete(String id) throws SQLException {
-        String sql = "DELETE FROM Customer WHERE Customer_ID = ?";
+        String sql = "DELETE FROM ContractOrder WHERE Contract_ID = ?";
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
                 .prepareStatement(sql);
 
@@ -73,30 +70,29 @@ public class ContractOrderRepo {
         return pstm.executeUpdate() > 0;
     }
 
-    public static List<Customer> getAll() throws SQLException {
-        String sql = "SELECT * FROM Customer";
+    public static List<ContractOrder> getAll() throws SQLException {
+        String sql = "SELECT * FROM ContractOrder";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
                 .prepareStatement(sql);
 
         ResultSet resultSet = pstm.executeQuery();
 
-        List<Customer> customersList = new ArrayList<>();
+        List<ContractOrder> contractordersList = new ArrayList<>();
         while (resultSet.next()) {
-            String Customer_ID = resultSet.getString(1);
-            String Name= resultSet.getString(2);
-            String Address = resultSet.getString(3);
-            String Contact = resultSet.getString(4);
-            String userId = resultSet.getString(5);
+            String ID = resultSet.getString(1);
+            String Date= resultSet.getString(2);
+            String Amount = resultSet.getString(3);
+            String Customer_ID = resultSet.getString(5);
 
-            Customer customer = new Customer(Customer_ID,Name,Address,Contact,userId);
-            customersList.add(customer);
+            ContractOrder contractorder = new ContractOrder(ID,Date,Amount,Customer_ID);
+            contractordersList.add(contractorder);
         }
-        return customersList;
+        return contractordersList;
     }
 
     public static List<String> getIds() throws SQLException {
-        String sql = "SELECT Customer_ID FROM Customer";
+        String sql = "SELECT ContractOrder_ID FROM Customer";
 
         Connection connection = DbConnection.getInstance().getConnection();
         ResultSet resultSet = connection.prepareStatement(sql).executeQuery();

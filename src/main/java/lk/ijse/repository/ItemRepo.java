@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ItemRepo {
     public static boolean save(Item item) throws SQLException {
-//        In here you can now save your customer
+//        In here you can now save your item
         String sql = "INSERT INTO Item VALUES(?, ?, ?, ?)";
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
                 .prepareStatement(sql);
@@ -27,7 +27,7 @@ public class ItemRepo {
 
     }
     public static boolean update(Item item) throws SQLException {
-        String sql = "UPDATE Customer SET Name = ?, Address  = ?, Contact = ? WHERE Customer_ID = ?";
+        String sql = "UPDATE item SET ID = ?,Name  = ?, Description = ? Price = ? WHERE Item_ID = ?";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
                 .prepareStatement(sql);
@@ -51,18 +51,18 @@ public class ItemRepo {
         Item customer = null;
 
         if (resultSet.next()) {
-            String Customer_ID = resultSet.getString(1);
+            String Item_ID = resultSet.getString(1);
             String Name= resultSet.getString(2);
-            String Address = resultSet.getString(3);
+            String Desc = resultSet.getString(3);
             double price = resultSet.getDouble(4);
 
-            customer = new Item(Customer_ID,Name,Address,price);
+            customer = new Item(Item_ID,Name,Desc,price);
         }
         return customer;
     }
 
     public static boolean delete(String id) throws SQLException {
-        String sql = "DELETE FROM Customer WHERE Customer_ID = ?";
+        String sql = "DELETE FROM Item WHERE Item_ID = ?";
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
                 .prepareStatement(sql);
 
@@ -93,7 +93,7 @@ public class ItemRepo {
     }
 
     public static List<String> getIds() throws SQLException {
-        String sql = "SELECT Customer_ID FROM Customer";
+        String sql = "SELECT Item_ID FROM Item";
 
         Connection connection = DbConnection.getInstance().getConnection();
         ResultSet resultSet = connection.prepareStatement(sql).executeQuery();

@@ -141,7 +141,7 @@ public class ContractOrderFormController {
         this.clearFields();
     }
     private void clearFields() {
-        txtDate.setText("");
+       // txtDate.setText("");
         txtContractOrderId.setText("");
         txtAmount.setText("");
     }

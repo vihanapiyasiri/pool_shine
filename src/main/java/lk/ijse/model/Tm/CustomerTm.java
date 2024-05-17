@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class CustomerTm {
+public class CustomerTm extends PaymentTm {
     private String Id;
     private String Name;
     private String Address;

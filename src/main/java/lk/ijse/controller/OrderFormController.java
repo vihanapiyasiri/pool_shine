@@ -12,15 +12,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lk.ijse.db.DbConnection;
 import lk.ijse.model.Tm.CartTm;
 import lk.ijse.repository.CustomerRepo;
 import lk.ijse.repository.ItemRepo;
 import lk.ijse.repository.OrderRepo;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -336,80 +333,19 @@ public class OrderFormController {
     }
 
     public void btnSaveOnAction(ActionEvent actionEvent) {
-        String id = txtItemId.getText();
-        String name = txtName.getText();
-        String desc = txtDescription.getText();
-        String price = txtUnitPrice.getText();
-        String sql = "INSERT INTO item VALUES(?, ?, ?, ?)";
-
-        try {
-            Connection connection = DbConnection.getInstance().getConnection();
-            PreparedStatement pstm = connection.prepareStatement(sql);
-            pstm.setObject(1, id);
-            pstm.setObject(2, name);
-            pstm.setObject(3, desc);
-            pstm.setObject(4, price);
-            boolean isSaved = pstm.executeUpdate() > 0;
-            if (isSaved) {
-                (new Alert(Alert.AlertType.CONFIRMATION, "Item saved!", new ButtonType[0])).show();
-                this.clearFields();
-            }
-        } catch (SQLException var10) {
-            (new Alert(Alert.AlertType.ERROR, var10.getMessage(), new ButtonType[0])).show();
-        }
-
 
     }
 
     public void btnUpdateOnAction(ActionEvent actionEvent) {
-        String id = this.txtItemId.getText();
-        String name = this.txtName.getText();
-        String desc = this.txtDescription.getText();
-        String price = this.txtUnitPrice.getText();
-        String sql = "UPDATE item SET name = ?, address = ?, tel = ? WHERE id = ?";
-
-        try {
-            PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-            pstm.setObject(1, id);
-            pstm.setObject(2, name);
-            pstm.setObject(3, desc);
-            pstm.setObject(4, price);
-            if (pstm.executeUpdate() > 0) {
-                (new Alert(Alert.AlertType.CONFIRMATION, "Item updated!", new ButtonType[0])).show();
-                this.clearFields();
-            }
-        } catch (SQLException var8) {
-            (new Alert(Alert.AlertType.ERROR, var8.getMessage(), new ButtonType[0])).show();
-        }
-
 
     }
 
     public void btnDeleteOnAction(ActionEvent actionEvent) {
-        String id = this.txtItemId.getText();
-        String sql = "DELETE FROM item WHERE Item_ID = ?";
 
-        try {
-            PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
-            pstm.setObject(1, id);
-            if (pstm.executeUpdate() > 0) {
-                (new Alert(Alert.AlertType.CONFIRMATION, "Item deleted!", new ButtonType[0])).show();
-                this.clearFields();
-            }
-        } catch (SQLException var5) {
-            (new Alert(Alert.AlertType.ERROR, var5.getMessage(), new ButtonType[0])).show();
-        }
 
     }
 
-    public void btnClearOnAction(ActionEvent event) {
-        clearFields();
-    }
+    public void btnClearOnAction(ActionEvent actionEvent) {
 
-    private void clearFields() {
-        txtId.setText("");
-        txtName.setText("");
-        txtAddress.setText("");
-        txtTel.setText("");
     }
 }

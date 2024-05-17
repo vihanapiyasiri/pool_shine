@@ -2,6 +2,7 @@ package lk.ijse.repository;
 
 import lk.ijse.db.DbConnection;
 import lk.ijse.model.Customer;
+import lk.ijse.model.Payment;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,58 +13,58 @@ import java.util.List;
 
 
 public class PaymentRepo {
-    public static boolean save(Customer customer) throws SQLException {
-//        In here you can now save your customer
-        String sql = "INSERT INTO Customer VALUES(?, ?, ?, ?)";
+    public static boolean save(Payment payment) throws SQLException {
+//        In here you can now save your payment
+        String sql = "INSERT INTO Payment VALUES(?, ?, ?, ?)";
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
                 .prepareStatement(sql);
 
-        pstm.setObject(1, customer.getId());
-        pstm.setObject(2, customer.getName());
-        pstm.setObject(3, customer.getAddress());
-        pstm.setObject(4, customer.getTel());
+        pstm.setObject(1, payment.getId());
+        pstm.setObject(2, payment.getAmount());
+        pstm.setObject(3, payment.getMethod());
+        pstm.setObject(4, payment.getDate());
 
         return pstm.executeUpdate() > 0;
 
     }
 
-    public static boolean update(Customer customer) throws SQLException {
-        String sql = "UPDATE Customer SET Name = ?, Address  = ?, Contact = ? WHERE Customer_ID = ?";
+    public static boolean update(Payment payment) throws SQLException {
+        String sql = "UPDATE Payment SET Date = ?, Amount  = ?, Method = ? WHERE Payment_ID = ?";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
                 .prepareStatement(sql);
 
-        pstm.setObject(1, customer.getName());
-        pstm.setObject(2, customer.getAddress());
-        pstm.setObject(3, customer.getTel());
-        pstm.setObject(4, customer.getId());
+        pstm.setObject(1, payment.getId());
+        pstm.setObject(2, payment.getAmount());
+        pstm.setObject(3, payment.getMethod());
+        pstm.setObject(4, payment.getDate());
 
         return pstm.executeUpdate() > 0;
     }
 
-    public static Customer searchById(String id) throws SQLException {
-        String sql = "SELECT * FROM Customer WHERE Customer_ID = ?";
+    public static Payment searchById(String id) throws SQLException {
+        String sql = "SELECT * FROM Payment WHERE Payment_ID = ?";
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
                 .prepareStatement(sql);
 
         pstm.setObject(1, id);
         ResultSet resultSet = pstm.executeQuery();
 
-        Customer customer = null;
+        Payment payment = null;
 
         if (resultSet.next()) {
             String Payment_ID = resultSet.getString(1);
-            String Name= resultSet.getString(2);
-            String Address = resultSet.getString(3);
-            String Contact = resultSet.getString(4);
+            String Amount= resultSet.getString(2);
+            String Method = resultSet.getString(3);
+            String Date = resultSet.getString(4);
 
-          //  customer = new Customer(Customer_ID,Name,Address,Contact);
+           payment = new Payment(Payment_ID,Amount,Method,Date);
         }
-        return customer;
+        return payment;
     }
 
     public static boolean delete(String id) throws SQLException {
-        String sql = "DELETE FROM Customer WHERE Customer_ID = ?";
+        String sql = "DELETE FROM Payment WHERE Payment_ID = ?";
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
                 .prepareStatement(sql);
 
@@ -72,29 +73,29 @@ public class PaymentRepo {
         return pstm.executeUpdate() > 0;
     }
 
-    public static List<Customer> getAll() throws SQLException {
-        String sql = "SELECT * FROM Customer";
+    public static List<Payment> getAll() throws SQLException {
+        String sql = "SELECT * FROM Payment";
 
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
                 .prepareStatement(sql);
 
         ResultSet resultSet = pstm.executeQuery();
 
-        List<Customer> customersList = new ArrayList<>();
+        List<Payment> paymentsList = new ArrayList<>();
         while (resultSet.next()) {
-            String Customer_ID = resultSet.getString(1);
-            String Name= resultSet.getString(2);
-            String Address = resultSet.getString(3);
-            String Contact = resultSet.getString(4);
+            String Payment_ID = resultSet.getString(1);
+            String Amount= resultSet.getString(2);
+            String Method = resultSet.getString(3);
+            String Date = resultSet.getString(4);
 
-           // Customer customer = new Customer(Customer_ID,Name,Address,Contact);
-           // customersList.add(customer);
+           Payment payment = new Payment(Payment_ID,Amount,Method,Date);
+            paymentsList.add(payment);
         }
-        return customersList;
+      return paymentsList;
     }
 
     public static List<String> getIds() throws SQLException {
-        String sql = "SELECT Customer_ID FROM Customer";
+        String sql = "SELECT Payment_ID FROM Payment";
 
         Connection connection = DbConnection.getInstance().getConnection();
         ResultSet resultSet = connection.prepareStatement(sql).executeQuery();

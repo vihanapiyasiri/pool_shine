@@ -79,7 +79,7 @@ public class PaymentFormController {
                 List<Payment> paymentList = PaymentRepo.getAll();
                 for (Payment payment : paymentList) {
                     PaymentTm tm = new CustomerTm(
-                            payment.getPaymentId(),
+                            payment.getId(),
                             payment.getAmount(),
                             payment.getMethod(),
                             payment.getDate()
@@ -88,7 +88,7 @@ public class PaymentFormController {
                     obList.add(tm);
                 }
 
-                tblPayment.setItems(obList);
+                //tblPayment.setItems(obList);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -98,7 +98,7 @@ public class PaymentFormController {
             colCode.setCellValueFactory(new PropertyValueFactory<>("Id"));
             colName.setCellValueFactory(new PropertyValueFactory<>("Name"));
             colAddress.setCellValueFactory(new PropertyValueFactory<>("Address"));
-            txtDate.setCellValueFactory(new PropertyValueFactory<>("Contact"));
+           // txtDate.setCellValueFactory(new PropertyValueFactory<>("Contact"));
         }
 
         @FXML
@@ -121,7 +121,7 @@ public class PaymentFormController {
             txtPaymentId.setText("");
             txtAmount.setText("");
             txtMethod.setText("");
-            txtDate.setText("");
+           // txtDate.setText("");
         }
 
         @FXML
@@ -144,10 +144,10 @@ public class PaymentFormController {
             String id = txtPaymentId.getText();
             String amount = txtAmount.getText();
             String method = txtMethod.getText();
-            String date = txtDate.getText();
-            String userId = credintial[0];
+            // String date = txtDate.getText();
+            // String userId = credintial[0];
 
-            Customer customer = new Customer(id, amount, address, tel, userId);
+           /* Customer customer = new Customer(id, amount, method );
 
 
             try {
@@ -180,9 +180,9 @@ public class PaymentFormController {
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
-        }
+        }*/
 
-        @FXML
+       /* @FXML
         void txtSearchOnAction(ActionEvent event) throws SQLException {
             String id = txtId.getText();
 
@@ -195,9 +195,7 @@ public class PaymentFormController {
             } else {
                 new Alert(Alert.AlertType.INFORMATION, "payment not found!").show();
             }
-        }
+        }*/
 
-    public void codeSearchOnAction(ActionEvent actionEvent) {
-    }
-}
+        }}
 

@@ -66,7 +66,7 @@ public class QuotationFormController {
     private void clearField() {
         txtAmount.setText("");
         txtQuotationId.setText("");
-        txtDate.setText("");
+       // txtDate.setText("");
     }
 
     @FXML
@@ -84,10 +84,10 @@ public class QuotationFormController {
         }
     }
 
-    @FXML
+    /*@FXML
     void btnSaveOnAction(ActionEvent event) {
         String id = txtQuotationId.getText();
-        String date = txtDate.getText();
+       // String date = txtDate.getText();
         String amount = txtAmount.getText();
         String userId = credintial[0];
 
@@ -137,7 +137,7 @@ public class QuotationFormController {
             txtAmount.setText(quotation.getAddress());
         } else {
             new Alert(Alert.AlertType.INFORMATION, "quotation not found!").show();
-        }
+        }*/
 
     }
-}
+
