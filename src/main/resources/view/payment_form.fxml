@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="root" prefHeight="545.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.PaymentFormController">
+<AnchorPane fx:id="root" prefHeight="545.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.PaymentFormController">
    <children>
       <ImageView fitHeight="1000.0" fitWidth="1000.0" opacity="0.45">
          <image>
@@ -24,7 +19,7 @@
             <Font name="System Bold" size="30.0" />
          </font>
       </Label>
-      <TextField fx:id="txtPaymentId" layoutX="73.0" layoutY="103.0" onAction="#codeSearchOnAction" prefHeight="35.0" prefWidth="406.0" />
+      <TextField fx:id="txtPaymentId" layoutX="73.0" layoutY="103.0" onAction="#txtSearchOnAction" prefHeight="35.0" prefWidth="406.0" />
       <Label layoutX="73.0" layoutY="86.0" text="Payment Id">
          <font>
             <Font name="System Bold" size="13.0" />
@@ -42,12 +37,12 @@
          </font>
       </Label>
       <TextField fx:id="txtMethod" layoutX="533.0" layoutY="198.0" prefHeight="35.0" prefWidth="393.0" />
-      <TableView fx:id="tblItem" layoutX="73.0" layoutY="300.0" prefHeight="509.0" prefWidth="853.0">
+      <TableView fx:id="tblPayment" layoutX="73.0" layoutY="300.0" prefHeight="509.0" prefWidth="853.0">
          <columns>
-            <TableColumn fx:id="colCode" prefWidth="102.0" text="Payment Id" />
-            <TableColumn fx:id="colDescription" prefWidth="244.0" text="Date" />
-            <TableColumn fx:id="colUnitPrice" prefWidth="239.0" text="Amount" />
-            <TableColumn fx:id="colQtyOnHand" prefWidth="267.0" text="Method" />
+            <TableColumn fx:id="colCode" prefWidth="102.0" text="Id" />
+            <TableColumn fx:id="colDate" prefWidth="244.0" text="Date" />
+            <TableColumn fx:id="colAmount" prefWidth="239.0" text="Amount" />
+            <TableColumn fx:id="colMethod" prefWidth="267.0" text="Method" />
          </columns>
       </TableView>
       <JFXButton buttonType="RAISED" layoutX="873.0" layoutY="932.0" onAction="#btnBackOnAction" prefHeight="35.0" prefWidth="61.0" style="-fx-background-color: grey;" text="Back">
@@ -97,6 +92,14 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </JFXButton>
-      <DatePicker layoutX="532.0" layoutY="103.0" prefHeight="35.0" prefWidth="393.0" />
+      <DatePicker fx:id="dpDate" layoutX="532.0" layoutY="103.0" prefHeight="35.0" prefWidth="393.0" />
+      <JFXButton buttonType="RAISED" contentDisplay="RIGHT" layoutX="818.0" layoutY="821.0" onAction="#btnPrintBillOnAction" prefHeight="40.0" prefWidth="111.0" style="-fx-background-color: #FF0000;" text="Print Bill" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
    </children>
 </AnchorPane>

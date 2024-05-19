@@ -84,7 +84,20 @@ public class QuotationFormController {
         }
     }
 
-    /*@FXML
+    public void codeSearchOnAction(ActionEvent actionEvent) {
+    }
+
+    public void btnSaveOnAction(ActionEvent actionEvent) {
+    }
+
+    public void btnUpdateOnAction(ActionEvent actionEvent) {
+    }
+
+    public void txtSearchOnAction(ActionEvent actionEvent) {
+
+    }
+
+   /* @FXML
     void btnSaveOnAction(ActionEvent event) {
         String id = txtQuotationId.getText();
        // String date = txtDate.getText();
@@ -137,7 +150,7 @@ public class QuotationFormController {
             txtAmount.setText(quotation.getAddress());
         } else {
             new Alert(Alert.AlertType.INFORMATION, "quotation not found!").show();
-        }*/
+        }
 
-    }
-
+    }*/
+}

@@ -24,7 +24,7 @@
          </font>
       </Label>
       <TextField fx:id="txtId" layoutX="65.0" layoutY="101.0" onAction="#txtSearchOnAction" prefHeight="33.0" prefWidth="405.0" />
-      <TextField fx:id="txtName" layoutX="532.0" layoutY="101.0" prefHeight="33.0" prefWidth="405.0" />
+      <TextField fx:id="txtName" layoutX="532.0" layoutY="101.0" onKeyReleased="#txtCustomerNameReleasedOnAction" prefHeight="33.0" prefWidth="405.0" />
       <JFXButton buttonType="RAISED" layoutX="879.0" layoutY="922.0" onAction="#btnBackOnAction" prefHeight="35.0" prefWidth="61.0" style="-fx-background-color: grey;" text="Back">
          <cursor>
             <Cursor fx:constant="HAND" />

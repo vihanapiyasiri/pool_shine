@@ -107,7 +107,7 @@ public class ContractOrderFormController {
                 String name = resultSet.getString(2);
                 String address = resultSet.getString(3);
                 String tel = resultSet.getString(4);
-                //this.txtDate.setText(name);
+               // this.Date.setText(name);
                 this.txtAmount.setText(address);
             } else {
                 (new Alert(Alert.AlertType.INFORMATION, "ContractOrder id can't be find!", new ButtonType[0])).show();

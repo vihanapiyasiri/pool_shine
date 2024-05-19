@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.model.Order;
 import lk.ijse.model.Tm.CartTm;
 import lk.ijse.repository.CustomerRepo;
 import lk.ijse.repository.ItemRepo;
@@ -20,11 +21,13 @@ import lk.ijse.repository.OrderRepo;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 public class OrderFormController {
 
+    public DatePicker dpOrderDate;
     @FXML
     private JFXButton btnAddToCart;
 
@@ -118,7 +121,7 @@ public class OrderFormController {
         colQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
         colUnitPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
         colTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
-        colAction.setCellValueFactory(new PropertyValueFactory<>("btnRemove"));
+
     }
 
     private void getItemCodes() {
@@ -169,8 +172,8 @@ public class OrderFormController {
     private String nextId(String currentId) {
         if (currentId != null) {
             String[] split = currentId.split("O");
-//            System.out.println("Arrays.toString(split) = " + Arrays.toString(split));
-            int id = Integer.parseInt(split[1]);    //2
+            System.out.println("Arrays.toString(split) = " + Arrays.toString(split));
+            int id = Integer.parseInt(split[1]);
             return "O" + ++id;
 
         }
@@ -179,7 +182,7 @@ public class OrderFormController {
 
     private void setDate() {
         LocalDate now = LocalDate.now();
-        txtOrderDate.setText(String.valueOf(now));
+        dpOrderDate.setValue(null);
     }
 
     @FXML
@@ -254,13 +257,13 @@ public class OrderFormController {
 
     }
 
-    @FXML
+ /*   @FXML
     void btnPlaceOrderOnAction(ActionEvent event) {
         String orderId = lblOrderId.getText();
         String cusId = cmbCustomerId.getValue();
-    /*    Date date = Date.valueOf(LocalDate.now());
+       String date = dpOrderDate.valueOf(LocalDate.now());
 
-        var order = new Order(orderId, cusId, date);
+        Order order = new Order(orderId, cusId, date);
 
         List<OrderDetail> odList = new ArrayList<>();
         for (int i = 0; i < tblOrderCart.getItems().size(); i++) {
@@ -319,18 +322,18 @@ public class OrderFormController {
 
         txtQty.requestFocus();
     }
-
+*/
 
     void txtQtyOnAction(ActionEvent event) {
         btnAddToCartOnAction(event);
-*/
+
+    }
+/*
+*//*    public void cmbItemOnAction(ActionEvent actionEvent) {
     }
 
-    public void cmbItemOnAction(ActionEvent actionEvent) {
-    }
-
-    public void cmbCustomerOnAction(ActionEvent actionEvent) {
-    }
+    publi*//*c void cmbCustomerOnAction(ActionEvent actionEvent) {
+    }*/
 
     public void btnSaveOnAction(ActionEvent actionEvent) {
 
@@ -347,5 +350,15 @@ public class OrderFormController {
 
     public void btnClearOnAction(ActionEvent actionEvent) {
 
+    }
+
+    public void searchOnAction(ActionEvent actionEvent) {
+
+    }
+
+    public void cmbItemOnAction(ActionEvent actionEvent) {
+    }
+
+    public void cmbCustomerOnAction(ActionEvent actionEvent) {
     }
 }

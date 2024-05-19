@@ -47,7 +47,7 @@ public class SupplierFormController {
     private TextField txtAddress;
     public void initialize() {
         setCellValueFactory();
-        //loadAllSuppliers();
+        loadAllSuppliers();
     }
     private void setCellValueFactory() {
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));

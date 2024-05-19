@@ -169,6 +169,9 @@ public class ItemFormController {
     public void codeSearchOnAction(ActionEvent actionEvent) {
     }
 
+    public void txtSearchOnAction(ActionEvent actionEvent) {
+    }
+
     //public void btnUpdateOnAction(ActionEvent actionEvent) {
     }
 

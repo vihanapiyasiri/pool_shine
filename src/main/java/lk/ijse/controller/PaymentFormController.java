@@ -6,19 +6,23 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.db.DbConnection;
 import lk.ijse.model.Customer;
 import lk.ijse.model.Payment;
 import lk.ijse.model.Tm.CustomerTm;
 import lk.ijse.model.Tm.PaymentTm;
 import lk.ijse.repository.CustomerRepo;
 import lk.ijse.repository.PaymentRepo;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -31,13 +35,14 @@ public class PaymentFormController {
     public TextField txtMethod;
     public TableView<?> tblItem;
     public TableColumn<?, ?> colCode;
-    public TableColumn<?, ?> colDescription;
-    public TableColumn<?, ?> colUnitPrice;
-    public TableColumn<?, ?> colQtyOnHand;
     public TextField txtPaymentId;
+    public DatePicker dpDate;
+    public TableColumn<?, ?> colDate;
+    public TableColumn<?,?> colAmount;
+    public TableColumn <?,?>colMethod;
 
 
-        @FXML
+    @FXML
         private TableColumn<?, ?> colAddress;
 
         @FXML
@@ -48,12 +53,12 @@ public class PaymentFormController {
 
         @FXML
         private TableColumn<?, ?> colTel;
-
+//
         @FXML
         private AnchorPane root;
 
         @FXML
-        private TableView<CustomerTm> tblCustomer;
+        private TableView<PaymentTm> tblPayment;
 
         @FXML
         private TextField txtAddress;
@@ -66,8 +71,9 @@ public class PaymentFormController {
 
         @FXML
         private TextField txtTel;
+    private DbConnection DBConnection;
 
-        public void initialize() {
+    public void initialize() {
             setCellValueFactory();
             loadAllPayments();
         }
@@ -78,17 +84,17 @@ public class PaymentFormController {
             try {
                 List<Payment> paymentList = PaymentRepo.getAll();
                 for (Payment payment : paymentList) {
-                    PaymentTm tm = new CustomerTm(
+                    PaymentTm tm = new PaymentTm(
                             payment.getId(),
+                            payment.getDate(),
                             payment.getAmount(),
-                            payment.getMethod(),
-                            payment.getDate()
-                    );
+                            payment.getMethod());
 
                     obList.add(tm);
                 }
 
-                //tblPayment.setItems(obList);
+                tblPayment.setItems(obList);
+
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
@@ -96,9 +102,9 @@ public class PaymentFormController {
 
         private void setCellValueFactory() {
             colCode.setCellValueFactory(new PropertyValueFactory<>("Id"));
-            colName.setCellValueFactory(new PropertyValueFactory<>("Name"));
-            colAddress.setCellValueFactory(new PropertyValueFactory<>("Address"));
-           // txtDate.setCellValueFactory(new PropertyValueFactory<>("Contact"));
+            colAmount.setCellValueFactory(new PropertyValueFactory<>("Amount"));
+            colMethod.setCellValueFactory(new PropertyValueFactory<>("Method"));
+            colDate.setCellValueFactory(new PropertyValueFactory<>("Date"));
         }
 
         @FXML
@@ -121,7 +127,7 @@ public class PaymentFormController {
             txtPaymentId.setText("");
             txtAmount.setText("");
             txtMethod.setText("");
-           // txtDate.setText("");
+           dpDate.setValue(null);
         }
 
         @FXML
@@ -144,14 +150,14 @@ public class PaymentFormController {
             String id = txtPaymentId.getText();
             String amount = txtAmount.getText();
             String method = txtMethod.getText();
-            // String date = txtDate.getText();
-            // String userId = credintial[0];
+           String date = String.valueOf(dpDate.getValue());
+            String userId = credintial[0];
 
-           /* Customer customer = new Customer(id, amount, method );
+            Payment payment = new Payment(id, amount, method,date);
 
 
             try {
-                boolean isSaved = CustomerRepo.save(customer);
+                boolean isSaved = PaymentRepo.save(payment);
                 if (isSaved) {
                     new Alert(Alert.AlertType.CONFIRMATION, "payment saved!").show();
                     loadAllPayments();
@@ -165,14 +171,14 @@ public class PaymentFormController {
         @FXML
         void btnUpdateOnAction(ActionEvent event) {
             String id = txtPaymentId.getText();
-            String name = txtAmount.getText();
-            String address = txtMethod.getText();
-            String tel = txtDate.getText();
+            String amount = txtAmount.getText();
+            String method = txtMethod.getText();
+           String date = String.valueOf(dpDate.getValue());
 
-           Payment payment = new Payment(PaymentId, name, address, tel, credintial[0]);
+           Payment payment = new Payment(id, amount, method,date);
 
             try {
-                boolean isUpdated = PaymentrRepo.update(payment);
+                boolean isUpdated = PaymentRepo.update(payment);
                 if (isUpdated) {
                     initialize();
                     new Alert(Alert.AlertType.CONFIRMATION, "payment updated!").show();
@@ -180,22 +186,38 @@ public class PaymentFormController {
             } catch (SQLException e) {
                 new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
             }
-        }*/
+        }
 
-       /* @FXML
-        void txtSearchOnAction(ActionEvent event) throws SQLException {
+        @FXML
+        void codeSearchOnAction(ActionEvent event) throws SQLException {
             String id = txtId.getText();
 
-            Customer customer =PaymentRepo.searchById(id);
-            if (customer != null) {
+            Payment payment =PaymentRepo.searchById(id);
+            if (payment != null) {
                 txtPaymentId.setText(payment.getId());
-                txtAmount.setText(payment.getName());
-                txtMethod.setText(payment.getAddress());
-                txtDate.setText(payment.getTel());
+                txtAmount.setText(payment.getAmount());
+                txtMethod.setText(payment.getMethod());
+               // dpDate.setValue(payment.getDate());
             } else {
                 new Alert(Alert.AlertType.INFORMATION, "payment not found!").show();
             }
-        }*/
+        }
 
-        }}
+    @FXML
+    void btnPrintBillOnAction(ActionEvent event) throws JRException, SQLException {
+        JasperDesign jasperDesign = JRXmlLoader.load("src/main/resources/Report/PoolShineReport.jrxml");
+        JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport,null, DbConnection.getInstance().getConnection());
+        JasperViewer.viewReport(jasperPrint);
+    }
+
+
+    public void txtSearchOnAction(ActionEvent actionEvent) {
+
+    }
+}
+
+
+
+
 

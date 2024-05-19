@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="root" prefHeight="726.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.SupplierFormController">
+<AnchorPane fx:id="root" prefHeight="726.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.controller.SupplierFormController">
    <children>
       <ImageView fitHeight="1000.0" fitWidth="1000.0" opacity="0.45">
          <image>
@@ -88,7 +84,7 @@
             <Font name="System Bold" size="13.0" />
          </font>
       </Label>
-      <Label  layoutX="71.0" layoutY="286.0" text="Contact" textFill="#363232">
+      <Label layoutX="71.0" layoutY="286.0" text="Contact" textFill="#363232">
          <font>
             <Font name="System Bold" size="13.0" />
          </font>

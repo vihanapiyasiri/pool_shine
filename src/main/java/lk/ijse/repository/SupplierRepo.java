@@ -73,7 +73,7 @@ public class SupplierRepo {
 
         return pstm.executeUpdate() > 0;
     }
-    public static List<lk.ijse.model.Supplier> getAll() throws SQLException {
+    public static List<Supplier> getAll() throws SQLException {
         String sql = "SELECT * FROM supplier";
         PreparedStatement pstm = DbConnection.getInstance().getConnection().prepareStatement(sql);
 
@@ -84,18 +84,17 @@ public class SupplierRepo {
         while (resultSet.next()) {
             String id = resultSet.getString(1);
             String name = resultSet.getString(2);
-            String terms = resultSet.getString(3);
-            String address = resultSet.getString(4);
-            String contact = resultSet.getString(5);
+            String terms = resultSet.getString(5);
+            String address = resultSet.getString(3);
+            String contact = resultSet.getString(4);
 
 
-            Supplier supplier = new Supplier(id,name,terms,address,contact);{
-
-            }
+            Supplier supplier = new Supplier(id,name,address,contact,terms);
             supplierList.add(supplier);
         }
         return supplierList;
     }
+
     public static List<String> getIds() throws SQLException {
         String sql = "SELECT id FROM supplier";
         PreparedStatement pstm = DbConnection.getInstance().getConnection()

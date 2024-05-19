@@ -1,7 +1,6 @@
 package lk.ijse.repository;
 
 import lk.ijse.db.DbConnection;
-import lk.ijse.model.Customer;
 import lk.ijse.model.Payment;
 
 import java.sql.Connection;
@@ -15,7 +14,7 @@ import java.util.List;
 public class PaymentRepo {
     public static boolean save(Payment payment) throws SQLException {
 //        In here you can now save your payment
-        String sql = "INSERT INTO Payment VALUES(?, ?, ?, ?)";
+        String sql = "INSERT INTO payment VALUES(?, ?, ?, ?)";
         PreparedStatement pstm = DbConnection.getInstance().getConnection()
                 .prepareStatement(sql);
 

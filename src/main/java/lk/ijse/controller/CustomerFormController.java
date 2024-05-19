@@ -15,9 +15,11 @@ import lk.ijse.model.Tm.ContractOrderTm;
 import lk.ijse.model.Tm.CustomerTm;
 import lk.ijse.repository.CustomerRepo;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import static lk.ijse.controller.LoginFormController.credintial;
 
@@ -182,5 +184,37 @@ public class CustomerFormController {
             new Alert(Alert.AlertType.INFORMATION, "customer not found!").show();
         }
     }
+    private void addError(TextField textField) {
+        textField.setStyle("-fx-border-color: red; -fx-border-width: 5");
+    }
 
+    private void removeError(TextField textField) {
+        textField.setStyle("-fx-border-color: green; -fx-border-width: 5");
+    }
+
+    @FXML
+    void txtCustomerNameReleasedOnAction(KeyEvent event) {
+        Pattern idPattern = Pattern.compile("^[a-zA-Z]*}");
+        if (!idPattern.matcher(txtName.getText()).matches()) {
+            addError(txtName);
+
+        }else{
+            removeError(txtName);
+        }
+    }
+
+    @FXML
+    void txtCustomerIdReleasedOnAction(KeyEvent event) {
+        Pattern idPattern = Pattern.compile("^(C)[0-9]{1,}$");
+        if (!idPattern.matcher(txtId.getText()).matches()) {
+            addError(txtId);
+
+        }else{
+            removeError(txtId);
+        }
+    }
+
+    public void txtCustomerNameReleasedOnAction(javafx.scene.input.KeyEvent keyEvent) {
+
+    }
 }
