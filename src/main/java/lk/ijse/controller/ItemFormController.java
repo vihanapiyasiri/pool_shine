@@ -25,6 +25,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import static lk.ijse.controller.LoginFormController.credintial;
+
 public class ItemFormController {
 
 
@@ -77,7 +79,25 @@ public class ItemFormController {
 
     @FXML
     void btnSaveOnAction(ActionEvent event) {
+            String id = txtItemId.getText();
+            String name = txtName.getText();
+            String description = txtDescription.getText();
+            String price = txtUnitPrice.getText();
 
+
+            Item item = new Item(id, name,  description,price);
+
+
+            try {
+                boolean isSaved = ItemRepo.save(item);
+                if (isSaved) {
+                    new Alert(Alert.AlertType.CONFIRMATION, "item saved!").show();
+                    loadAllItems();
+                    clearFields();
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
     }
 
     private void clearFields() {

@@ -14,9 +14,8 @@ import java.util.List;
 public class ItemRepo {
     public static boolean save(Item item) throws SQLException {
 //        In here you can now save your item
-        String sql = "INSERT INTO Item VALUES(?, ?, ?, ?)";
-        PreparedStatement pstm = DbConnection.getInstance().getConnection()
-                .prepareStatement(sql);
+        String sql = "INSERT INTO Item VALUES(?, ?, ?, ?)" ;
+        PreparedStatement pstm = connection.prepareStatement(sql);
 
         pstm.setObject(1, item.getItemId());
         pstm.setObject(2, item.getName());
@@ -24,8 +23,11 @@ public class ItemRepo {
         pstm.setObject(4, item.getPrice());
 
         return pstm.executeUpdate() > 0;
-
     }
+
+
+
+
     public static boolean update(Item item) throws SQLException {
         String sql = "UPDATE item SET ID = ?,Name  = ?, Description = ? Price = ? WHERE Item_ID = ?";
 
@@ -54,7 +56,7 @@ public class ItemRepo {
             String Item_ID = resultSet.getString(1);
             String Name= resultSet.getString(2);
             String Desc = resultSet.getString(3);
-            double price = resultSet.getDouble(4);
+            String price = resultSet.getString(4);
 
             customer = new Item(Item_ID,Name,Desc,price);
         }
@@ -84,7 +86,7 @@ public class ItemRepo {
             String Item_ID = resultSet.getString(1);
             String Name= resultSet.getString(2);
             String Description = resultSet.getString(3);
-            double Price = resultSet.getDouble(4);
+            String Price = resultSet.getString(4);
 
             Item item = new Item(Item_ID,Name,Description,Price);
             itemList.add(item);

@@ -46,7 +46,7 @@ public class PaymentFormController {
         private TableColumn<?, ?> colAddress;
 
         @FXML
-        private TableColumn<?, ?> colId;
+        private TableColumn<?, ?> col;
 
         @FXML
         private TableColumn<?, ?> colName;

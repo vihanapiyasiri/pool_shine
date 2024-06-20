@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PoolShineReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fe8a72b0-9f41-41da-9976-83a62c414efa">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (2)"/>
+	<queryString language="SQL">
+		<![CDATA[select* from payment;]]>
+	</queryString>
+	<field name="Payment_ID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Payment_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="Payment_ID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
+	</field>
+	<field name="Amount" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="Amount"/>
+		<property name="com.jaspersoft.studio.field.label" value="Amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
+	</field>
+	<field name="Method" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Method"/>
+		<property name="com.jaspersoft.studio.field.label" value="Method"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
+	</field>
+	<field name="Date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="Date"/>
+		<property name="com.jaspersoft.studio.field.label" value="Date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="payment"/>
+	</field>
+	<group name="Payment_ID">
+		<groupExpression><![CDATA[$F{Payment_ID}]]></groupExpression>
+	</group>
+	<group name="Amount">
+		<groupExpression><![CDATA[$F{Amount}]]></groupExpression>
+	</group>
+	<group name="Method">
+		<groupExpression><![CDATA[$F{Method}]]></groupExpression>
+	</group>
+	<group name="Date">
+		<groupExpression><![CDATA[$F{Date}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="164" splitType="Stretch">
+			<staticText>
+				<reportElement x="-20" y="-10" width="594" height="39" uuid="704ba958-71a1-45e7-a5f0-1d75f8f4fc06"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="26" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[  POOL SHINE (Pvt) Ltd]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="30" width="399" height="30" uuid="83c4f689-9250-42f1-8088-6298080c6284"/>
+				<textElement textAlignment="Center">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[Habaraduwa , Mirissa ,  Dikwalla , Thissamaharama  ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-20" y="61" width="595" height="30" uuid="1c2993a8-1ef7-42fe-a04d-d998677f7f3b"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[0772032749 / 0770779314]]></text>
+			</staticText>
+			<textField pattern="HH:mm">
+				<reportElement x="510" y="73" width="55" height="20" uuid="c9cd05cc-5aaf-4d6c-b515-555d5194d56d"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="420" y="73" width="86" height="19" uuid="71fba86c-658e-4374-af9e-5bf67807b210"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="6" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="81" y="30" width="100" height="30" uuid="07910714-8e68-4c2a-9b62-9252f95f2ec5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="312ca4fd-0259-4e11-bd8e-a58df2fa09eb"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Payment_ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="30" width="100" height="30" uuid="3db67ab3-4f4c-44c7-b983-cf198e31121d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7a5fec6f-7269-475a-8c6c-ff4341adde7a"/>
+				</reportElement>
+				<textElement>
+					<font isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="227" y="30" width="100" height="30" uuid="38ce4497-5b3c-4a54-af7c-9758ef2ae026">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="11b9f270-eaca-495d-afa8-07886cfec95a"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Method]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="80" y="0" width="100" height="30" uuid="ba1b794b-6cb9-4120-a9a4-5929a2eb86bb">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="312ca4fd-0259-4e11-bd8e-a58df2fa09eb"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Payment_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="0" width="100" height="30" uuid="46614086-cd89-4dae-ac8a-1bc2517e4f05">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7a5fec6f-7269-475a-8c6c-ff4341adde7a"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="227" y="0" width="100" height="30" uuid="a20a030a-ef21-46bd-b302-d746c87d3cec">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="11b9f270-eaca-495d-afa8-07886cfec95a"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{Method}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="58" splitType="Stretch">
+			<staticText>
+				<reportElement x="80" y="20" width="400" height="30" uuid="98d795c0-e13f-4ee8-9c72-074e00b64a4d"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[ Total]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="380" y="27" width="100" height="19" uuid="96f8d017-fa9a-45a1-b8f0-930f5f01878f"/>
+				<textFieldExpression><![CDATA[$F{Amount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="63" splitType="Stretch">
+			<staticText>
+				<reportElement x="180" y="30" width="199" height="19" uuid="531dc1e6-ccd2-42bf-9b32-4e228df50194"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[come again.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="0" width="199" height="28" uuid="6b94d2e9-0e2e-4af9-9bf2-a2dc628cf6c3"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Thank You !]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

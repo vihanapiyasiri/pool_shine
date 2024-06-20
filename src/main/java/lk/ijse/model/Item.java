@@ -12,5 +12,5 @@ public class Item {
     String itemId;
     String name;
     String desc;
-    double price;
+    String price;
 }
