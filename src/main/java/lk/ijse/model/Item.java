@@ -13,4 +13,7 @@ public class Item {
     String name;
     String desc;
     String price;
+
+    public Item(String itemId, String name, String description, String price) {
+    }
 }
