@@ -1,61 +1,53 @@
-Pool Shine - Swimming Pool Cleaning Service System
-Pool Shine is a web-based management system designed for a professional swimming pool cleaning and maintenance service provider. The platform bridges the gap between pool owners and service providers, allowing for seamless booking and service management.
+# 🏊‍♂️ Pool Shine
 
-🚀 Features
-For Customers:
-User Authentication: Secure registration and login system for customers.
+ 
+[![GitHub repo size](https://img.shields.io/github/repo-size/vihanapiyasiri/pool_shine)](https://github.com/vihanapiyasiri/pool_shine)  
+[![YouTube Demo](https://img.shields.io/badge/Video-Demo-red)](https://youtu.be/OWNw4MIgoko)
 
-Service Catalog: View various cleaning packages, maintenance services, and pricing.
+---
 
-Online Booking: Book a cleaning service by selecting a preferred date and time.
+## ✨ About Pool Shine
 
-Profile Management: Manage personal details and view booking history.
+**Pool Shine** is a **Full-Stack  Web Application** for **professional swimming pool cleaning services**.  
+It helps manage bookings, customers, and services efficiently.
 
-Contact Support: Integrated contact form for inquiries and feedback.
+- **Customers:** Book services online, view booking history, contact admin.
+- **Admins:** Manage users, bookings, and service packages easily.
 
-For Administrators:
-Admin Dashboard: A centralized overview of all business activities.
+💻 **Backend powered by PHP**, handling all server-side logic, CRUD operations, and database communication.
 
-Booking Management: Ability to view, approve, or reject incoming service requests.
+---
 
-User Management: Monitor registered users and their activity.
+## 🚀 Features
 
-Service Management: Add, update, or remove service packages and pricing.
+### 🧑‍💻 Customer Features
+- Secure registration & login (PHP + MySQL)
+- Browse pool cleaning services & packages
+- Book services online
+- Track booking status & history
+- Contact admin via feedback form
 
-🛠️ Technologies Used
-Frontend: HTML5, CSS3, JavaScript, Bootstrap (for responsive design).
+### 🛠️ Admin Features
+- Dashboard overview of all bookings
+- Approve/reject booking requests
+- Manage customers & service packages
+- Update service details & pricing
 
-Backend: PHP (Server-side logic).
+---
 
-Database: MySQL (Relational database management).
+## 🛠️ Tech Stack
 
-Tools: XAMPP / WAMP Server.
+| Layer        | Technology  |
+|--------------|------------|
+| Frontend     | HTML, CSS, JavaScript, Bootstrap |
+| Backend      | PHP        |
+| Database     | MySQL      |
+| Server       | XAMPP / WAMP |
 
-💻 Installation Guide
-Follow these steps to set up the project on your local machine:
+---
 
-Clone the Repository:
+## 📂 Installation
 
-Bash
+1. Clone the repository:
+```bash
 git clone https://github.com/vihanapiyasiri/pool_shine.git
-Setup Local Server:
-
-Install XAMPP or WAMP.
-
-Move the project folder to the htdocs directory (for XAMPP) or www directory (for WAMP).
-
-Database Configuration:
-
-Open phpMyAdmin in your browser (localhost/phpmyadmin).
-
-Create a new database (e.g., pool_shine_db).
-
-Import the provided .sql file located in the project folder.
-
-Connect Database:
-
-Open db_connection.php (or the relevant config file) and update the database name, username, and password to match your local settings.
-
-Run the Application:
-
-Open your browser and type: http://localhost/pool_shine
